@@ -71,3 +71,8 @@ crashlytics-build.properties
 .vs/
 bin/
 obj/
+/Cemetery_Adventure_Logic/obj/Debug/net6.0/Cemetery_Adventure_Logic.assets.cache
+/Cemetery_Adventure_Logic/obj/Cemetery_Adventure_Logic.csproj.nuget.dgspec.json
+/Cemetery_Adventure_Logic/obj/Cemetery_Adventure_Logic.csproj.nuget.g.props
+/Cemetery_Adventure_Logic/obj/project.assets.json
+/Cemetery_Adventure_Logic/obj/project.nuget.cache
