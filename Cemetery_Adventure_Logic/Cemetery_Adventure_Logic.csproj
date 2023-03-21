@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entity\" />
+    <Folder Include="Item\Consumable\" />
+    <Folder Include="Item\Equipment\Armor\" />
+    <Folder Include="Item\Equipment\Weapon\" />
   </ItemGroup>
 
 </Project>

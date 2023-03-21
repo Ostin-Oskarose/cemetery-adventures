@@ -1,0 +1,37 @@
+﻿namespace Cemetery_Adventure_Logic.Entity.Character;
+
+public abstract class Character : Entity
+{
+    protected int HP { get; private set; }
+    protected int MaxHP { get; private set; }
+    protected int Damage { get; private set; }
+    protected int Defense { get; private set; }
+
+    protected Character((int X, int Y) position, int maxHP, int damage, int defense) : base(position)
+    {
+        HP = maxHP;
+        MaxHP = maxHP;
+        Damage = damage;
+        Defense = defense;
+    }
+
+    public abstract (int X, int Y) GetMove();
+
+    public virtual void Attack(Entity targetEntity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void ApplyDamage()
+    {
+        throw new NotImplementedException();
+    }
+
+    public virtual void Move(int x, int y)
+    {
+        Position.X = x;
+        Position.Y = y;
+    }
+
+    
+}
