@@ -4,7 +4,7 @@ public abstract class Enemy : Character
 {
     protected (int X, int Y) LastKnownPosition;
 
-    protected Enemy((int X, int Y) position, int maxHP, int damage, int defense) : base(position, maxHP, damage, defense)
+    protected Enemy(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
     }
 }

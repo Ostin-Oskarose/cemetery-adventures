@@ -2,7 +2,7 @@
 
 public class Player : Character
 {
-    public Player((int X, int Y) position, int hP, int maxHP, int damage, int defense) : base(position, maxHP, damage, defense)
+    public Player(string name, (int X, int Y) position, int hP, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
     }
 

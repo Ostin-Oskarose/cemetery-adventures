@@ -2,7 +2,7 @@
 
 public class FloorItem : Entity
 {
-    public FloorItem((int X, int Y) position) : base(position)
+    public FloorItem(Item.Item item, (int X, int Y) position) : base(item.Name, position)
     {
     }
 
