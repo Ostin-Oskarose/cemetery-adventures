@@ -27,7 +27,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 {
                     if ((i == 0 || i == Height - 1) || (j == 0 || j == Width - 1))
                     {
-                        BoardArray[i, j] = new BoardItem((j, i), "# ");
+                        BoardArray[i, j] = new BoardItem((j, i), "#");
                     }
                 }
             }

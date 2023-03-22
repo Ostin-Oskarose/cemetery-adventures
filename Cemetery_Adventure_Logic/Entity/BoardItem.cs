@@ -2,13 +2,11 @@
 {
     public class BoardItem : Entity
     {
+
+        public override char Symbol => Name[0];
+
         public BoardItem((int X, int Y) position, string name) : base(name, position)
         {
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

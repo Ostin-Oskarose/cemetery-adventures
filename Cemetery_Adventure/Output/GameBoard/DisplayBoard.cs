@@ -15,7 +15,7 @@ namespace Cemetery_Adventure.Output.GameBoard
                         Console.Write("  ");
                         continue;
                     }
-                    Console.Write(game.GameBoard.BoardArray[i,j]);
+                    Console.Write($"{game.GameBoard.BoardArray[i,j].Symbol} ");
                 }
                 Console.WriteLine();
             }
