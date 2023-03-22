@@ -7,6 +7,8 @@ public abstract class Character : Entity
     protected int Damage { get; private set; }
     protected int Defense { get; private set; }
 
+    protected List<Item.Item> Inventory = new List<Item.Item>();
+
     protected Character((int X, int Y) position, int maxHP, int damage, int defense) : base(position)
     {
         HP = maxHP;
