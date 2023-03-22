@@ -19,7 +19,16 @@ namespace Cemetery_Adventure_Logic
 
         public void Update()
         {
-            _player.Turn();
+            PlayerTurn();
         }
+
+        public void PlayerTurn()
+        {
+            var move = _player.GetMove();
+            GameBoard.MoveEntity(_player.Position, move);
+            _player.Move(move.X, move.Y);
+            
+        }
+
     }
 }

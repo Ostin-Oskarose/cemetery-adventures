@@ -34,5 +34,12 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 }
             }
         }
+
+        public void MoveEntity((int X, int Y) entityPosition, (int X, int Y) targetPosition)
+        {
+            var entity = BoardArray[entityPosition.Y, entityPosition.X];
+            BoardArray[entityPosition.Y, entityPosition.X] = null;
+            BoardArray[targetPosition.Y, targetPosition.X] = entity;
+        }
     }
 }
