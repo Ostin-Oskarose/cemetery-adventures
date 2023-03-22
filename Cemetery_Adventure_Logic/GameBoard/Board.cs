@@ -11,6 +11,8 @@ namespace Cemetery_Adventure_Logic.GameBoard
         public List<Enemy> EnemyList { get; }
         public Entity.Entity[,] BoardArray { get; set; }
 
+        private Random random = new Random();
+
         public Board(int height, int width, Player player)
         {
             Width = width;
@@ -20,6 +22,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             BoardArray[player.Position.Y, player.Position.X] = player;
             CreateBorders();
             GenerateEnemies();
+            CreateTombs();
         }
 
         private void CreateBorders()
@@ -38,7 +41,6 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         private void GenerateEnemies()
         {
-            Random random = new Random();
             //TODO Change to ceil minAmount
             int minAmount = (Height * Width) / 300 + 1;
             int maxAmount = (Height *  Width) / 120;
@@ -52,8 +54,6 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         private void CreateEnemies(Enemies enemy, int amount)
         {
-            Random random = new Random();
-
             for (int i = 0; i < amount; i++)
             {
                 do
@@ -79,6 +79,20 @@ namespace Cemetery_Adventure_Logic.GameBoard
             var entity = BoardArray[entityPosition.Y, entityPosition.X];
             BoardArray[entityPosition.Y, entityPosition.X] = null;
             BoardArray[targetPosition.Y, targetPosition.X] = entity;
+        }
+
+        public void CreateTombs()
+        {
+            var numTombs = random.Next(15, 25);
+            for (var i = 0; i < numTombs; i++)
+            {
+                var x = random.Next(1, Height - 2);
+                var y = random.Next(1, Width - 2);
+                if (BoardArray[x, y] == null)
+                {
+                    BoardArray[x, y] = new BoardItem((x, y), "+");
+                }
+            }
         }
     }
 }
