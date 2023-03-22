@@ -19,14 +19,16 @@ public abstract class Character : Entity
 
     public abstract (int X, int Y) GetMove();
 
-    public virtual void Attack(Entity targetEntity)
+    public virtual void Attack(Character target)
     {
-        throw new NotImplementedException();
+        target.ApplyDamage(Damage);
     }
 
-    public virtual void ApplyDamage()
+    public virtual void ApplyDamage(int damage)
     {
-        throw new NotImplementedException();
+        damage -= Defense;
+        if (damage < 0) damage = 0;
+        HP -= damage;
     }
 
     public virtual void Move(int x, int y)
