@@ -8,7 +8,28 @@ public class Player : Character
 
     public override (int X, int Y) GetMove()
     {
-        throw new NotImplementedException();
+        (int X,int Y) move;
+        //TODO implement input
+        var input = "w";
+        switch (input)
+        {
+            case "w":
+                move = (Position.X, Position.Y - 1);
+                break;
+            case "a":
+                move = (Position.X - 1, Position.Y); 
+                break;
+            case "s":
+                move = (Position.X, Position.Y + 1);
+                break;
+            case "d":
+                move = (Position.X + 1, Position.Y);
+                break;
+            default:
+                move = Position;
+                break;
+        }
+        return move;
     }
 
     public void Turn()
