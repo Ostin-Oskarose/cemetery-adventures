@@ -13,19 +13,23 @@ public class Player : Character
     {
         (int X,int Y) move;
         //TODO implement input
-        var input = "w";
-        switch (input)
+        ConsoleKeyInfo inputInfo = Console.ReadKey(true);
+        switch (inputInfo.Key)
         {
-            case "w":
+            case ConsoleKey.UpArrow:
+            case ConsoleKey.W:
                 move = (Position.X, Position.Y - 1);
                 break;
-            case "a":
+            case ConsoleKey.RightArrow:
+            case ConsoleKey.A:
                 move = (Position.X - 1, Position.Y); 
                 break;
-            case "s":
+            case ConsoleKey.DownArrow:
+            case ConsoleKey.S:
                 move = (Position.X, Position.Y + 1);
                 break;
-            case "d":
+            case ConsoleKey.LeftArrow:
+            case ConsoleKey.D:
                 move = (Position.X + 1, Position.Y);
                 break;
             default:
