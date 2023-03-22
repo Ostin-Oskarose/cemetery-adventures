@@ -20,7 +20,7 @@ public class Player : Character
                 move = (Position.X, Position.Y - 1);
                 break;
             case ConsoleKey.RightArrow:
-            case ConsoleKey.A:
+            case ConsoleKey.D:
                 move = (Position.X + 1, Position.Y); 
                 break;
             case ConsoleKey.DownArrow:
@@ -28,7 +28,7 @@ public class Player : Character
                 move = (Position.X, Position.Y + 1);
                 break;
             case ConsoleKey.LeftArrow:
-            case ConsoleKey.D:
+            case ConsoleKey.A:
                 move = (Position.X - 1, Position.Y);
                 break;
             default:
