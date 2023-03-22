@@ -6,7 +6,7 @@ public abstract class Entity
 {
     protected string Name { get; private set; }
     public abstract char Symbol { get; }
-    protected (int X, int Y) Position;
+    public (int X, int Y) Position;
 
     protected Entity(string name, (int X, int Y) position)
     {

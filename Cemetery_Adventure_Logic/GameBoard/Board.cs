@@ -1,5 +1,6 @@
 ﻿using Cemetery_Adventure_Logic.Entity.Character.Enemy;
 using Cemetery_Adventure_Logic.Entity;
+using Cemetery_Adventure_Logic.Entity.Character;
 
 namespace Cemetery_Adventure_Logic.GameBoard
 {
@@ -10,12 +11,13 @@ namespace Cemetery_Adventure_Logic.GameBoard
         public List<Enemy> EnemyList { get; }
         public Entity.Entity[,] BoardArray { get; set; }
 
-        public Board(int height, int width)
+        public Board(int height, int width, Player player)
         {
             Width = width;
             Height = height;
             EnemyList = new List<Enemy>();
             BoardArray = new Entity.Entity[Height, Width];
+            BoardArray[player.Position.Y, player.Position.X] = player;
             CreateBorders();
         }
 
