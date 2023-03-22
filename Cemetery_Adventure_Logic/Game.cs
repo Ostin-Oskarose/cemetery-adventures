@@ -16,7 +16,7 @@ namespace Cemetery_Adventure_Logic
         {
             _player = new Player("Player", (1, 1), 10, 1, 0);
             Floor = 1;
-            GameBoard = new Board(_height, _width, _player);
+            GameBoard = new Board(_height, _width, _player, Floor);
         }
 
         public void Update()

@@ -2,6 +2,11 @@
 {
     public enum Enemies
     {
-        Skeleton
+        Rat,
+        Skeleton,
+        Ghoul,
+        Zombie,
+        Vampire,
+        Necromancer
     }
 }
