@@ -12,7 +12,6 @@ public class Player : Character
     public override (int X, int Y) GetMove()
     {
         (int X,int Y) move;
-        //TODO implement input
         ConsoleKeyInfo inputInfo = Console.ReadKey(true);
         switch (inputInfo.Key)
         {
@@ -22,7 +21,7 @@ public class Player : Character
                 break;
             case ConsoleKey.RightArrow:
             case ConsoleKey.A:
-                move = (Position.X - 1, Position.Y); 
+                move = (Position.X + 1, Position.Y); 
                 break;
             case ConsoleKey.DownArrow:
             case ConsoleKey.S:
@@ -30,7 +29,7 @@ public class Player : Character
                 break;
             case ConsoleKey.LeftArrow:
             case ConsoleKey.D:
-                move = (Position.X + 1, Position.Y);
+                move = (Position.X - 1, Position.Y);
                 break;
             default:
                 move = Position;
