@@ -17,13 +17,9 @@ namespace Cemetery_Adventure_Logic
             GameBoard = new Board(_height, _width, _player);
         }
 
-        public void Start()
+        public void Update()
         {
-            var gameRunning = true;
-            while (gameRunning)
-            {
-                _player.Turn();
-            }
+            _player.Turn();
         }
     }
 }
