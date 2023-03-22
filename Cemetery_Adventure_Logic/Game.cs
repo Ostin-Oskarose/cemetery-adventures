@@ -1,4 +1,5 @@
-﻿using Cemetery_Adventure_Logic.GameBoard;
+﻿using Cemetery_Adventure_Logic.Entity.Character;
+using Cemetery_Adventure_Logic.GameBoard;
 
 namespace Cemetery_Adventure_Logic
 {
@@ -6,11 +7,14 @@ namespace Cemetery_Adventure_Logic
     {
         private int _width = 50;
         private int _height = 40;
+        private Player _player;
+
         public Board GameBoard { get; set; }
 
         public Game()
         {
-            GameBoard = new Board(_height, _width);
+            _player = new Player("Player", (1, 1), 10, 1, 0);
+            GameBoard = new Board(_height, _width, _player);
         }
     }
 }

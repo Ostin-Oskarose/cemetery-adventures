@@ -5,7 +5,7 @@ public class Player : Character
 
     public override char Symbol => '@';
 
-    public Player(string name, (int X, int Y) position, int hP, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
+    public Player(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
     }
 
