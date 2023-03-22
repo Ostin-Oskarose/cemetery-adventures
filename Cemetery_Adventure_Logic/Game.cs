@@ -16,5 +16,14 @@ namespace Cemetery_Adventure_Logic
             _player = new Player("Player", (1, 1), 10, 1, 0);
             GameBoard = new Board(_height, _width, _player);
         }
+
+        public void Start()
+        {
+            var gameRunning = true;
+            while (gameRunning)
+            {
+                _player.Turn();
+            }
+        }
     }
 }

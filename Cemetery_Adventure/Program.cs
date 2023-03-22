@@ -9,6 +9,7 @@ namespace Cemetery_Adventure
             Console.WriteLine("Hello, Adventurer!");
             var game = new Game();
             Output.GameBoard.DisplayBoard.Display(game);
+            game.Start();
         }
     }
 }
