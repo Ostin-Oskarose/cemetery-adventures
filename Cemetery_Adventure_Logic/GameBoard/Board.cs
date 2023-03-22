@@ -13,7 +13,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         private Random random = new Random();
 
-        public Board(int height, int width, Player player)
+        public Board(int height, int width, Player player, int floor)
         {
             Width = width;
             Height = height;
@@ -21,7 +21,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             BoardArray = new Entity.Entity[Height, Width];
             BoardArray[player.Position.Y, player.Position.X] = player;
             CreateBorders();
-            GenerateEnemies();
+            GenerateEnemies(floor);
             CreateTombs();
         }
 
@@ -39,13 +39,13 @@ namespace Cemetery_Adventure_Logic.GameBoard
             }
         }
 
-        private void GenerateEnemies()
+        private void GenerateEnemies(int floor)
         {
-            //TODO Change to ceil minAmount
-            int minAmount = (Height * Width) / 300 + 1;
-            int maxAmount = (Height *  Width) / 120;
+            int minAmount = (int)Math.Ceiling((double)(Height * Width / 300 + 1));
+            int maxAmount = (int)Math.Ceiling((double)(Height *  Width / 120));
+            var availableEnemiesList = Enum.GetValues<Enemies>().Where(x => (int)x < floor).ToList();
 
-            foreach (var enemy in Enum.GetValues<Enemies>())
+            foreach (var enemy in availableEnemiesList)
             {
                 int amount = random.Next(minAmount, maxAmount);
                 CreateEnemies(enemy, amount);
@@ -65,7 +65,13 @@ namespace Cemetery_Adventure_Logic.GameBoard
                     {
                         BoardArray[x, y] = enemy switch
                         {
-                            Enemies.Skeleton => new Skeleton((x, y))
+                            Enemies.Rat => new Rat((x, y)),
+                            Enemies.Skeleton => new Skeleton((x, y)),
+                            Enemies.Ghoul => new Ghoul((x, y)),
+                            Enemies.Zombie => new Zombie((x, y)),
+                            Enemies.Vampire => new Vampire((x, y)),
+                            Enemies.Necromancer => new Necromancer((x, y))
+
                         };
                         EnemyList.Add((Enemy)BoardArray[x, y]);
                         break;
