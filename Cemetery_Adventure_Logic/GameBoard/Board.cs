@@ -17,6 +17,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             EnemyList = new List<Enemy>();
             BoardArray = new Entity.Entity[Height, Width];
             CreateBorders();
+            GenerateEnemies();
         }
 
         private void CreateBorders()
@@ -30,6 +31,44 @@ namespace Cemetery_Adventure_Logic.GameBoard
                         BoardArray[i, j] = new BoardItem((j, i), "#");
                     }
                 }
+            }
+        }
+
+        private void GenerateEnemies()
+        {
+            Random random = new Random();
+            //TODO Change to ceil minAmount
+            int minAmount = (Height * Width) / 300 + 1;
+            int maxAmount = (Height *  Width) / 120;
+
+            foreach (var enemy in Enum.GetValues<Enemies>())
+            {
+                int amount = random.Next(minAmount, maxAmount);
+                CreateEnemies(enemy, amount);
+            }
+        }
+
+        private void CreateEnemies(Enemies enemy, int amount)
+        {
+            Random random = new Random();
+
+            for (int i = 0; i < amount; i++)
+            {
+                do
+                {
+                    int x = random.Next(0, Height - 1);
+                    int y = random.Next(0, Width - 1);
+
+                    if (BoardArray[x, y] == null)
+                    {
+                        BoardArray[x, y] = enemy switch
+                        {
+                            Enemies.Skeleton => new Skeleton((x, y))
+                        };
+                        EnemyList.Add((Enemy)BoardArray[x, y]);
+                        break;
+                    }
+                } while (true);
             }
         }
     }

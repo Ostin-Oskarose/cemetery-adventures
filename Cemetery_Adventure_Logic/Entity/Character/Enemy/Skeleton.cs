@@ -12,7 +12,7 @@ public class Skeleton : Enemy
         throw new NotImplementedException();
     }
 
-    public Skeleton((int X, int Y) position, int maxHP, int damage, int defense) : base("Skeleton", position, maxHP, damage, defense)
+    public Skeleton((int X, int Y) position, int maxHP = 20, int damage = 3, int defense = 5) : base("Skeleton", position, maxHP, damage, defense)
     {
     }
 }
