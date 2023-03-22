@@ -5,28 +5,31 @@ public class Player : Character
 
     public override char Symbol => '@';
 
-    public Player(string name, (int X, int Y) position, int hP, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
+    public Player(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
     }
 
     public override (int X, int Y) GetMove()
     {
         (int X,int Y) move;
-        //TODO implement input
-        var input = "w";
-        switch (input)
+        ConsoleKeyInfo inputInfo = Console.ReadKey(true);
+        switch (inputInfo.Key)
         {
-            case "w":
+            case ConsoleKey.UpArrow:
+            case ConsoleKey.W:
                 move = (Position.X, Position.Y - 1);
                 break;
-            case "a":
-                move = (Position.X - 1, Position.Y); 
+            case ConsoleKey.RightArrow:
+            case ConsoleKey.A:
+                move = (Position.X + 1, Position.Y); 
                 break;
-            case "s":
+            case ConsoleKey.DownArrow:
+            case ConsoleKey.S:
                 move = (Position.X, Position.Y + 1);
                 break;
-            case "d":
-                move = (Position.X + 1, Position.Y);
+            case ConsoleKey.LeftArrow:
+            case ConsoleKey.D:
+                move = (Position.X - 1, Position.Y);
                 break;
             default:
                 move = Position;
