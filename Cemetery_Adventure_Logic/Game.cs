@@ -9,7 +9,7 @@ namespace Cemetery_Adventure_Logic
         private int _width = 20;
         private int _height = 20;
         public Player Player;
-        private int Floor;
+        public int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
         public bool PlayerIsAlive => Player.IsAlive;
 
