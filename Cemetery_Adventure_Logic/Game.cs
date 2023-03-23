@@ -17,7 +17,7 @@ namespace Cemetery_Adventure_Logic
 
         public Game()
         {
-            Player = new Player("Player", (1, 1), 10, 1, 0);
+            Player = new Player("Player", (1, 1), 20, 5, 0);
             Floor = 1;
             GameBoard = new Board(_height, _width, Player, Floor);
         }
@@ -85,10 +85,11 @@ namespace Cemetery_Adventure_Logic
                             break;
                         case CollisionType.Obstacle:
                             var obstacle = GameBoard.BoardArray[move.Y, move.X];
-                            if (obstacle is Stairs stairs && character is Player)
+                            if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
                             {
                                 Floor = stairs.LevelNumber + 1;
                                 GameBoard = new Board(_height, _width, Player, Floor);
+                                Player.RemoveItemFromInventory("Key");
                             }
                             break;
                     }
@@ -107,6 +108,10 @@ namespace Cemetery_Adventure_Logic
             {
                 if (!enemy.IsAlive)
                 {
+                    foreach (var item in enemy.GetInventory())
+                    {
+                        Player.AddItemToInventory(item);
+                    }
                     GameBoard.RemoveEntity(enemy.Position);
                 }
             }

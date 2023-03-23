@@ -11,9 +11,4 @@ public class Stairs : BoardItem
     {
         LevelNumber = levelNumber;
     }
-
-    public void UseStairs()
-    {
-
-    }
 }

@@ -39,5 +39,18 @@ public abstract class Character : Entity
         Position.Y = y;
     }
 
-    
+    public void AddItemToInventory(Item.Item item)
+    {
+        Inventory.Add(item);
+    }
+
+    public List<Item.Item> GetInventory()
+    {
+        return Inventory;
+    }
+
+    public void RemoveItemFromInventory(string itemName)
+    {
+        Inventory.RemoveAll(item => item.Name == itemName);
+    }
 }

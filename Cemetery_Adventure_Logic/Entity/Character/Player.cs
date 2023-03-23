@@ -47,4 +47,9 @@ public class Player : Character
         _consoleKey = ConsoleKey.X;
         return move;
     }
+
+    public bool CheckForKey()
+    {
+        return Inventory.Any(item => item.Name == "Key");
+    }
 }

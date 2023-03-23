@@ -1,6 +1,7 @@
 ﻿using Cemetery_Adventure_Logic.Entity.Character.Enemy;
 using Cemetery_Adventure_Logic.Entity;
 using Cemetery_Adventure_Logic.Entity.Character;
+using Cemetery_Adventure_Logic.Item.Equipment;
 
 namespace Cemetery_Adventure_Logic.GameBoard
 {
@@ -23,6 +24,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             CreateBorders();
             CreateStairs(floor);
             GenerateEnemies(floor);
+            GiveKeyToEnemy();
             CreateTombs();
         }
 
@@ -79,6 +81,13 @@ namespace Cemetery_Adventure_Logic.GameBoard
                     }
                 } while (true);
             }
+        }
+
+        private void GiveKeyToEnemy()
+        {
+            var randomIndex = random.Next(EnemyList.Count);
+            var key = new Key();
+            EnemyList[randomIndex].AddItemToInventory(key);
         }
 
         public void MoveEntity((int X, int Y) entityPosition, (int X, int Y) targetPosition)

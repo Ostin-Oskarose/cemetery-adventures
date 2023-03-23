@@ -37,6 +37,18 @@ namespace Cemetery_Adventure.Outputs
         internal static void DisplayPlayerInformation(Game game)
         {
             Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5}");
+            if (game.Player.GetInventory().Count > 0)
+            {
+                Console.Write("Inventory: ");
+                foreach (var item in game.Player.GetInventory())
+                {
+                    Console.Write($" {item.Name} ");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{new string(' ',30)}");
+            }
         }
     }
 }

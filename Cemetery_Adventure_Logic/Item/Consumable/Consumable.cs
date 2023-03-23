@@ -2,5 +2,5 @@
 
 public abstract class Consumable : Item
 {
-    
+    protected Consumable(string name) : base(name) { }
 }
