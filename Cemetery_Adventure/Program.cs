@@ -1,5 +1,6 @@
 ﻿using Cemetery_Adventure_Logic;
 using Cemetery_Adventure.Outputs;
+using Cemetery_Adventure_Logic.Entity.Character;
 
 namespace Cemetery_Adventure
 {
@@ -15,6 +16,10 @@ namespace Cemetery_Adventure
             {
                 Output.DisplayBoard(game);
                 game.Update();
+                if (!game.PlayerIsAlive)
+                {
+                    gameRunning = false;
+                }
                 Console.SetCursorPosition(0,0);
             }
         }

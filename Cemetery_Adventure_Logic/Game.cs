@@ -11,6 +11,7 @@ namespace Cemetery_Adventure_Logic
         private Player _player;
         private int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
+        public bool PlayerIsAlive => _player.IsAlive;
 
         public Board GameBoard { get; set; }
 
@@ -76,7 +77,10 @@ namespace Cemetery_Adventure_Logic
                     {
                         case CollisionType.Character:
                             var target = GameBoard.BoardArray[move.Y, move.X] as Character;
-                            character.Attack(target);
+                            if (target != character)
+                            {
+                                character.Attack(target);
+                            }
                             break;
                     }
                 }
