@@ -1,17 +1,10 @@
-﻿using System.Security.Principal;
-
-namespace Cemetery_Adventure_Logic.Entity.Character.Enemy;
+﻿namespace Cemetery_Adventure_Logic.Entity.Character.Enemy;
 
 public class Skeleton : Enemy
 {
     public override char Symbol => Name[0];
 
-    public Skeleton((int X, int Y) position, int maxHP = 15, int damage = 3, int defense = 5) : base("Skeleton", position, maxHP, damage, defense)
+    public Skeleton((int X, int Y) position, int maxHP = 20, int damage = 3, int defense = 5) : base("Skeleton", position, maxHP, damage, defense)
     {
-    }
-
-    public override (int X, int Y) GetMove()
-    {
-        throw new NotImplementedException();
     }
 }

@@ -4,6 +4,8 @@ public class Player : Character
 {
 
     public override char Symbol => '@';
+    private ConsoleKeyInfo _keyInfo = new ConsoleKeyInfo();
+    private ConsoleKey _consoleKey = new ConsoleKey();
 
     public Player(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
@@ -12,8 +14,14 @@ public class Player : Character
     public override (int X, int Y) GetMove()
     {
         (int X,int Y) move;
-        ConsoleKeyInfo inputInfo = Console.ReadKey(true);
-        switch (inputInfo.Key)
+        if (Console.KeyAvailable)
+        {
+            _keyInfo = Console.ReadKey(true);
+            _consoleKey = _keyInfo.Key;
+        }
+        //ConsoleKeyInfo inputInfo = Console.ReadKey(true);
+        //switch (inputInfo.Key)
+        switch (_consoleKey)
         {
             case ConsoleKey.UpArrow:
             case ConsoleKey.W:
@@ -35,6 +43,8 @@ public class Player : Character
                 move = Position;
                 break;
         }
+
+        _consoleKey = ConsoleKey.X;
         return move;
     }
 
