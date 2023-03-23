@@ -34,7 +34,10 @@ namespace Cemetery_Adventure_Logic
                 {
                     switch (GetCollisionType(move))
                     {
-
+                        case CollisionType.Character:
+                            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
+                            _player.Attack(target);
+                            break;
                     }
                 }
                 else
