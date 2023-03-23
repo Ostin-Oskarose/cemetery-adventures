@@ -8,13 +8,13 @@ namespace Cemetery_Adventure
         static void Main(string[] args)
         {
             var game = new Game();
-
             var gameRunning = true;
+            Output.Init();
+
             while (gameRunning)
             {
                 Output.DisplayBoard(game);
                 game.Update();
-                game.EnemiesTurn();
                 Console.SetCursorPosition(0,0);
             }
         }

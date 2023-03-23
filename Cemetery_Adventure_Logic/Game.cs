@@ -10,6 +10,7 @@ namespace Cemetery_Adventure_Logic
         private int _height = 20;
         private Player _player;
         private int Floor;
+        private DateTime LastEnemyUpdate = DateTime.Now;
 
         public Board GameBoard { get; set; }
 
@@ -23,7 +24,11 @@ namespace Cemetery_Adventure_Logic
         public void Update()
         {
             PlayerTurn();
-            //EnemiesTurn();
+            if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
+            {
+                EnemiesTurn();
+                LastEnemyUpdate = DateTime.Now;
+            }
         }
 
         public void PlayerTurn()
@@ -55,7 +60,7 @@ namespace Cemetery_Adventure_Logic
             return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height && GameBoard.BoardArray[move.Y, move.X] == null; ;
         }
 
-        public async Task EnemiesTurn()
+        public void EnemiesTurn()
         {
             foreach (var enemy in GameBoard.EnemyList)
             {
@@ -66,7 +71,6 @@ namespace Cemetery_Adventure_Logic
                     enemy.Move(move.X, move.Y);
                 }
             }
-            await Task.Delay(5000);
         }
 
         public CollisionType GetCollisionType((int X, int Y) position)
