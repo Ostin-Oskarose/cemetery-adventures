@@ -1,10 +1,10 @@
 ﻿using Cemetery_Adventure_Logic;
 
-namespace Cemetery_Adventure.Output.GameBoard
+namespace Cemetery_Adventure.Outputs
 {
-    public class DisplayBoard
+    public class Output
     {
-        public static void Display(Game game)
+        public static void DisplayBoard(Game game)
         {
             for (int i = 0; i < game.GameBoard.BoardArray.GetLength(0); i++)
             {
@@ -15,7 +15,7 @@ namespace Cemetery_Adventure.Output.GameBoard
                         Console.Write("  ");
                         continue;
                     }
-                    Console.Write($"{game.GameBoard.BoardArray[i,j].Symbol} ");
+                    Console.Write($"{game.GameBoard.BoardArray[i, j].Symbol} ");
                 }
                 Console.WriteLine();
             }

@@ -1,4 +1,5 @@
 ﻿using Cemetery_Adventure_Logic;
+using Cemetery_Adventure.Outputs;
 
 namespace Cemetery_Adventure
 {
@@ -12,7 +13,7 @@ namespace Cemetery_Adventure
             var gameRunning = true;
             while (gameRunning)
             {
-                Output.GameBoard.DisplayBoard.Display(game);
+                Output.DisplayBoard(game);
                 game.Update();
             }
         }
