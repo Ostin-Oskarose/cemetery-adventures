@@ -21,6 +21,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             BoardArray = new Entity.Entity[Height, Width];
             BoardArray[player.Position.Y, player.Position.X] = player;
             CreateBorders();
+            CreateStairs(floor);
             GenerateEnemies(floor);
             CreateTombs();
         }
@@ -97,6 +98,20 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 if (BoardArray[y, x] == null)
                 {
                     BoardArray[y, x] = new BoardItem((y, x), "+");
+                }
+            }
+        }
+
+        public void CreateStairs(int floor)
+        {
+            while (true)
+            {
+                var x = random.Next(1, Width - 2);
+                var y = random.Next(1, Height - 2);
+                if (BoardArray[y, x] == null)
+                {
+                    BoardArray[y, x] = new Stairs((y, x), floor);
+                    break;
                 }
             }
         }
