@@ -56,8 +56,7 @@ namespace Cemetery_Adventure_Logic
 
         public bool ValidateMoveWithinBounds((int X, int Y) move)
         {
-            //return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
-            return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height && GameBoard.BoardArray[move.Y, move.X] == null; ;
+            return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
         }
 
         public void EnemiesTurn()
