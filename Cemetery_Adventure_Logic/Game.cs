@@ -1,4 +1,5 @@
-﻿using Cemetery_Adventure_Logic.Entity.Character;
+﻿using Cemetery_Adventure_Logic.Entity;
+using Cemetery_Adventure_Logic.Entity.Character;
 using Cemetery_Adventure_Logic.GameBoard;
 
 namespace Cemetery_Adventure_Logic
@@ -31,7 +32,10 @@ namespace Cemetery_Adventure_Logic
             {
                 if (GameBoard.IsOccupied(move))
                 {
+                    switch (GetCollisionType(move))
+                    {
 
+                    }
                 }
                 else
                 {
@@ -46,5 +50,19 @@ namespace Cemetery_Adventure_Logic
             return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
         }
 
+        public CollisionType GetCollisionType((int X, int Y) position)
+        {
+            switch (GameBoard.BoardArray[position.Y, position.X])
+            {
+                case Character:
+                    return CollisionType.Character;
+                case BoardItem:
+                    return CollisionType.Obstacle;
+                case FloorItem:
+                    return CollisionType.Item;
+                default:
+                    throw new ArgumentException();
+            }
+        }
     }
 }
