@@ -29,10 +29,16 @@ namespace Cemetery_Adventure_Logic
             var move = _player.GetMove();
             if (ValidateMoveWithinBounds(move))
             {
-                GameBoard.MoveEntity(_player.Position, move);
-                _player.Move(move.X, move.Y);
-            }
+                if (GameBoard.IsOccupied(move))
+                {
 
+                }
+                else
+                {
+                    GameBoard.MoveEntity(_player.Position, move);
+                    _player.Move(move.X, move.Y);
+                }
+            }
         }
 
         public bool ValidateMoveWithinBounds((int X, int Y) move)

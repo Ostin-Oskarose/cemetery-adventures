@@ -100,5 +100,10 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 }
             }
         }
+
+        public bool IsOccupied((int X, int Y) position)
+        {
+            return BoardArray[position.Y, position.X] != null;
+        }
     }
 }
