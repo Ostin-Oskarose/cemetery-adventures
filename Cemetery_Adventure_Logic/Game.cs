@@ -27,7 +27,7 @@ namespace Cemetery_Adventure_Logic
         public void PlayerTurn()
         {
             var move = _player.GetMove();
-            if (ValidateMove(move))
+            if (ValidateMoveWithinBounds(move))
             {
                 GameBoard.MoveEntity(_player.Position, move);
                 _player.Move(move.X, move.Y);
@@ -35,14 +35,9 @@ namespace Cemetery_Adventure_Logic
 
         }
 
-        public bool ValidateMove((int X, int Y) move)
+        public bool ValidateMoveWithinBounds((int X, int Y) move)
         {
-            return WithinBounds(move);
-
-            bool WithinBounds((int X, int Y) move)
-            {
-                return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
-            }
+            return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
         }
 
     }
