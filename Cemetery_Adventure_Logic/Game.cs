@@ -88,7 +88,7 @@ namespace Cemetery_Adventure_Logic
                             if (obstacle is Stairs stairs && character is Player)
                             {
                                 Floor = stairs.LevelNumber + 1;
-                                GameBoard = new Board(_height, _width, _player, Floor);
+                                GameBoard = new Board(_height, _width, Player, Floor);
                             }
                             break;
                     }
