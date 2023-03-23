@@ -47,10 +47,4 @@ public class Player : Character
         _consoleKey = ConsoleKey.X;
         return move;
     }
-
-    public void Turn()
-    {
-        var move = GetMove();
-        Move(move.X, move.Y);
-    }
 }

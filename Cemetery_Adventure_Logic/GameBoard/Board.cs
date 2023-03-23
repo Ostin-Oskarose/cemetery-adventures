@@ -105,5 +105,10 @@ namespace Cemetery_Adventure_Logic.GameBoard
         {
             return BoardArray[position.Y, position.X] != null;
         }
+
+        public void RemoveEntity((int X, int Y) position)
+        {
+            BoardArray[position.Y, position.X] = null;
+        }
     }
 }

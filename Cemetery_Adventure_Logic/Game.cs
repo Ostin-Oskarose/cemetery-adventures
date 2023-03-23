@@ -29,6 +29,7 @@ namespace Cemetery_Adventure_Logic
                 EnemiesTurn();
                 LastEnemyUpdate = DateTime.Now;
             }
+            RemoveDeadEnemies();
         }
 
         public void PlayerTurn()
@@ -85,6 +86,19 @@ namespace Cemetery_Adventure_Logic
                     character.Move(move.X, move.Y);
                 }
             }
+        }
+
+        public void RemoveDeadEnemies()
+        {
+            foreach (var enemy in GameBoard.EnemyList)
+            {
+                if (!enemy.IsAlive)
+                {
+                    GameBoard.RemoveEntity(enemy.Position);
+                }
+            }
+
+            GameBoard.EnemyList.RemoveAll(enemy => !enemy.IsAlive);
         }
     }
 }

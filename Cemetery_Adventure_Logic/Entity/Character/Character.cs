@@ -9,7 +9,7 @@ public abstract class Character : Entity
 
     protected List<Item.Item> Inventory = new List<Item.Item>();
 
-    protected bool IsAlive => HP > 0;
+    public bool IsAlive => HP > 0;
 
     protected Character(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position)
     {
