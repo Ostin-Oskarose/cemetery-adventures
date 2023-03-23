@@ -4,8 +4,8 @@ public abstract class Character : Entity
 {
     public int HP { get; private set; }
     public int MaxHP { get; private set; }
-    protected int Damage { get; private set; }
-    protected int Defense { get; private set; }
+    public int Damage { get; private set; }
+    public int Defense { get; private set; }
 
     protected List<Item.Item> Inventory = new List<Item.Item>();
 

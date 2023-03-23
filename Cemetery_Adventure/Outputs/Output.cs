@@ -35,7 +35,7 @@ namespace Cemetery_Adventure.Outputs
 
         internal static void DisplayPlayerInformation(Game game)
         {
-            Console.WriteLine($"{$"HP: {game.Player.HP}/{game.Player.MaxHP}",10}");
+            Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5}");
         }
     }
 }
