@@ -7,7 +7,6 @@ namespace Cemetery_Adventure
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Adventurer!");
             var game = new Game();
 
             var gameRunning = true;
@@ -15,6 +14,8 @@ namespace Cemetery_Adventure
             {
                 Output.DisplayBoard(game);
                 game.Update();
+                game.EnemiesTurn();
+                Console.SetCursorPosition(0,0);
             }
         }
     }
