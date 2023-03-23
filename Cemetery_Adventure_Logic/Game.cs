@@ -47,6 +47,7 @@ namespace Cemetery_Adventure_Logic
         {
             foreach (var enemy in GameBoard.EnemyList)
             {
+                enemy.SearchForPlayer(_player);
                 CharacterTurn(enemy);
             }
         }
