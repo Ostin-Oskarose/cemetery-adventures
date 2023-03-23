@@ -2,8 +2,8 @@
 
 public abstract class Character : Entity
 {
-    protected int HP { get; private set; }
-    protected int MaxHP { get; private set; }
+    public int HP { get; private set; }
+    public int MaxHP { get; private set; }
     protected int Damage { get; private set; }
     protected int Defense { get; private set; }
 

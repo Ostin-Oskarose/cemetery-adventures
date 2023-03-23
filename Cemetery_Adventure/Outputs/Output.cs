@@ -32,5 +32,10 @@ namespace Cemetery_Adventure.Outputs
             Console.WriteLine("GAME OVER");
             Console.WriteLine("You died!");
         }
+
+        internal static void DisplayPlayerInformation(Game game)
+        {
+            Console.WriteLine($"{$"HP: {game.Player.HP}/{game.Player.MaxHP}",10}");
+        }
     }
 }

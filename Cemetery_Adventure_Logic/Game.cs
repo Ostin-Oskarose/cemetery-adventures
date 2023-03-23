@@ -8,18 +8,18 @@ namespace Cemetery_Adventure_Logic
     {
         private int _width = 20;
         private int _height = 20;
-        private Player _player;
+        public Player Player;
         private int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
-        public bool PlayerIsAlive => _player.IsAlive;
+        public bool PlayerIsAlive => Player.IsAlive;
 
         public Board GameBoard { get; set; }
 
         public Game()
         {
-            _player = new Player("Player", (1, 1), 10, 1, 0);
+            Player = new Player("Player", (1, 1), 10, 1, 0);
             Floor = 1;
-            GameBoard = new Board(_height, _width, _player, Floor);
+            GameBoard = new Board(_height, _width, Player, Floor);
         }
 
         public void Update()
@@ -35,7 +35,7 @@ namespace Cemetery_Adventure_Logic
 
         public void PlayerTurn()
         {
-            CharacterTurn(_player);
+            CharacterTurn(Player);
         }
 
         public bool ValidateMoveWithinBounds((int X, int Y) move)
@@ -47,7 +47,7 @@ namespace Cemetery_Adventure_Logic
         {
             foreach (var enemy in GameBoard.EnemyList)
             {
-                enemy.SearchForPlayer(_player);
+                enemy.SearchForPlayer(Player);
                 CharacterTurn(enemy);
             }
         }

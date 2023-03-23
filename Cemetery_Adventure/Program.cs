@@ -15,6 +15,7 @@ namespace Cemetery_Adventure
             while (gameRunning)
             {
                 Output.DisplayBoard(game);
+                Output.DisplayPlayerInformation(game);
                 game.Update();
                 Console.SetCursorPosition(0,0);
                 if (!game.PlayerIsAlive)
