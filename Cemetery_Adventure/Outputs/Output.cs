@@ -25,5 +25,12 @@ namespace Cemetery_Adventure.Outputs
                 Console.WriteLine();
             }
         }
+
+        public static void PrintGameOver()
+        {
+            Console.Clear();
+            Console.WriteLine("GAME OVER");
+            Console.WriteLine("You died!");
+        }
     }
 }

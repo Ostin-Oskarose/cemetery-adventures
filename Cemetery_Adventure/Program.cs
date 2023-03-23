@@ -16,11 +16,12 @@ namespace Cemetery_Adventure
             {
                 Output.DisplayBoard(game);
                 game.Update();
+                Console.SetCursorPosition(0,0);
                 if (!game.PlayerIsAlive)
                 {
+                    Output.PrintGameOver();
                     gameRunning = false;
                 }
-                Console.SetCursorPosition(0,0);
             }
         }
     }
