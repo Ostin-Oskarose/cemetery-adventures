@@ -4,6 +4,11 @@ namespace Cemetery_Adventure.Outputs
 {
     public class Output
     {
+        public static void Init()
+        {
+            Console.CursorVisible = false;
+        }
+
         public static void DisplayBoard(Game game)
         {
             for (int i = 0; i < game.GameBoard.BoardArray.GetLength(0); i++)

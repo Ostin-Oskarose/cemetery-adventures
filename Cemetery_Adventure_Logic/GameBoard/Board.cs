@@ -58,12 +58,12 @@ namespace Cemetery_Adventure_Logic.GameBoard
             {
                 do
                 {
-                    int x = random.Next(0, Height - 1);
-                    int y = random.Next(0, Width - 1);
+                    int x = random.Next(0, Width - 1);
+                    int y = random.Next(0, Height - 1);
 
-                    if (BoardArray[x, y] == null)
+                    if (BoardArray[y, x] == null)
                     {
-                        BoardArray[x, y] = enemy switch
+                        BoardArray[y, x] = enemy switch
                         {
                             Enemies.Rat => new Rat((x, y)),
                             Enemies.Skeleton => new Skeleton((x, y)),
@@ -73,7 +73,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                             Enemies.Necromancer => new Necromancer((x, y))
 
                         };
-                        EnemyList.Add((Enemy)BoardArray[x, y]);
+                        EnemyList.Add((Enemy)BoardArray[y, x]);
                         break;
                     }
                 } while (true);
@@ -92,11 +92,11 @@ namespace Cemetery_Adventure_Logic.GameBoard
             var numTombs = random.Next(15, 25);
             for (var i = 0; i < numTombs; i++)
             {
-                var x = random.Next(1, Height - 2);
-                var y = random.Next(1, Width - 2);
-                if (BoardArray[x, y] == null)
+                var x = random.Next(1, Width - 2);
+                var y = random.Next(1, Height - 2);
+                if (BoardArray[y, x] == null)
                 {
-                    BoardArray[x, y] = new BoardItem((x, y), "+");
+                    BoardArray[y, x] = new BoardItem((y, x), "+");
                 }
             }
         }

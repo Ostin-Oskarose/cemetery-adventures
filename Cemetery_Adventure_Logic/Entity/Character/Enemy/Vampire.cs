@@ -7,10 +7,5 @@
         public Vampire((int X, int Y) position, int maxHP = 50, int damage = 15, int defense = 15) : base("Vampire", position, maxHP, damage, defense)
         {
         }
-
-        public override (int X, int Y) GetMove()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

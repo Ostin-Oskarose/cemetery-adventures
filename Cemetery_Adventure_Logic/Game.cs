@@ -6,10 +6,11 @@ namespace Cemetery_Adventure_Logic
 {
     public class Game
     {
-        private int _width = 50;
-        private int _height = 40;
+        private int _width = 20;
+        private int _height = 20;
         private Player _player;
         private int Floor;
+        private DateTime LastEnemyUpdate = DateTime.Now;
 
         public Board GameBoard { get; set; }
 
@@ -23,6 +24,11 @@ namespace Cemetery_Adventure_Logic
         public void Update()
         {
             PlayerTurn();
+            if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
+            {
+                EnemiesTurn();
+                LastEnemyUpdate = DateTime.Now;
+            }
         }
 
         public void PlayerTurn()
@@ -51,6 +57,19 @@ namespace Cemetery_Adventure_Logic
         public bool ValidateMoveWithinBounds((int X, int Y) move)
         {
             return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
+        }
+
+        public void EnemiesTurn()
+        {
+            foreach (var enemy in GameBoard.EnemyList)
+            {
+                var move = enemy.GetMove();
+                if (ValidateMoveWithinBounds(move))
+                {
+                    GameBoard.MoveEntity(enemy.Position, move);
+                    enemy.Move(move.X, move.Y);
+                }
+            }
         }
 
         public CollisionType GetCollisionType((int X, int Y) position)

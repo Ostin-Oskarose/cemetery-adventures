@@ -7,14 +7,15 @@ namespace Cemetery_Adventure
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Adventurer!");
             var game = new Game();
-
             var gameRunning = true;
+            Output.Init();
+
             while (gameRunning)
             {
                 Output.DisplayBoard(game);
                 game.Update();
+                Console.SetCursorPosition(0,0);
             }
         }
     }
