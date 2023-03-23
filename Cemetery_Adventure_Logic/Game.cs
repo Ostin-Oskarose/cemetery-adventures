@@ -82,6 +82,14 @@ namespace Cemetery_Adventure_Logic
                                 character.Attack(target);
                             }
                             break;
+                        case CollisionType.Obstacle:
+                            var obstacle = GameBoard.BoardArray[move.Y, move.X];
+                            if (obstacle is Stairs stairs && character is Player)
+                            {
+                                Floor = stairs.LevelNumber + 1;
+                                GameBoard = new Board(_height, _width, _player, Floor);
+                            }
+                            break;
                     }
                 }
                 else
