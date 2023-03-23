@@ -33,25 +33,7 @@ namespace Cemetery_Adventure_Logic
 
         public void PlayerTurn()
         {
-            var move = _player.GetMove();
-            if (ValidateMoveWithinBounds(move))
-            {
-                if (GameBoard.IsOccupied(move))
-                {
-                    switch (GetCollisionType(move))
-                    {
-                        case CollisionType.Character:
-                            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
-                            _player.Attack(target);
-                            break;
-                    }
-                }
-                else
-                {
-                    GameBoard.MoveEntity(_player.Position, move);
-                    _player.Move(move.X, move.Y);
-                }
-            }
+            CharacterTurn(_player);
         }
 
         public bool ValidateMoveWithinBounds((int X, int Y) move)
@@ -63,12 +45,7 @@ namespace Cemetery_Adventure_Logic
         {
             foreach (var enemy in GameBoard.EnemyList)
             {
-                var move = enemy.GetMove();
-                if (ValidateMoveWithinBounds(move))
-                {
-                    GameBoard.MoveEntity(enemy.Position, move);
-                    enemy.Move(move.X, move.Y);
-                }
+                CharacterTurn(enemy);
             }
         }
 
@@ -84,6 +61,29 @@ namespace Cemetery_Adventure_Logic
                     return CollisionType.Item;
                 default:
                     throw new ArgumentException();
+            }
+        }
+
+        public void CharacterTurn(Character character)
+        {
+            var move = character.GetMove();
+            if (ValidateMoveWithinBounds(move))
+            {
+                if (GameBoard.IsOccupied(move))
+                {
+                    switch (GetCollisionType(move))
+                    {
+                        case CollisionType.Character:
+                            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
+                            character.Attack(target);
+                            break;
+                    }
+                }
+                else
+                {
+                    GameBoard.MoveEntity(character.Position, move);
+                    character.Move(move.X, move.Y);
+                }
             }
         }
     }
