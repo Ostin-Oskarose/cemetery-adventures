@@ -11,6 +11,7 @@ namespace Cemetery_Adventure.Outputs
 
         public static void DisplayBoard(Game game)
         {
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine($"Floor {game.Floor}");
             for (int i = 0; i < game.GameBoard.BoardArray.GetLength(0); i++)
             {
