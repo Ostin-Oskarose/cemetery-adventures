@@ -10,10 +10,10 @@ namespace Cemetery_Adventure
         {
             var game = new Game();
             var gameRunning = true;
-            Output.Init();
 
             while (gameRunning)
             {
+                Output.Init();
                 Output.DisplayBoard(game);
                 Output.DisplayPlayerInformation(game);
                 game.Update();
