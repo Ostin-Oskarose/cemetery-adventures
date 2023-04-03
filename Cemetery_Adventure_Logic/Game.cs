@@ -82,7 +82,7 @@ namespace Cemetery_Adventure_Logic
                             {
                                 character.Attack(target);
                             }
-                            break;
+                            return;
                         case CollisionType.Obstacle:
                             var obstacle = GameBoard.BoardArray[move.Y, move.X];
                             if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
@@ -91,14 +91,18 @@ namespace Cemetery_Adventure_Logic
                                 GameBoard = new Board(_height, _width, Player, Floor);
                                 Player.RemoveItemFromInventory("Key");
                             }
+                            return;
+                        case CollisionType.Item:
+                            if (character != Player) return;
+
+                            var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
+                            Player.AddItemToInventory(item);
                             break;
                     }
                 }
-                else
-                {
-                    GameBoard.MoveEntity(character.Position, move);
-                    character.Move(move.X, move.Y);
-                }
+
+                GameBoard.MoveEntity(character.Position, move);
+                character.Move(move.X, move.Y);
             }
         }
 
