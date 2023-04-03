@@ -4,8 +4,7 @@ public class Player : Character
 {
 
     public override char Symbol => '@';
-    private ConsoleKeyInfo _keyInfo = new ConsoleKeyInfo();
-    private ConsoleKey _consoleKey = new ConsoleKey();
+    public Direction Direction { get; set; }
 
     public Player(string name, (int X, int Y) position, int maxHP, int damage, int defense) : base(name, position, maxHP, damage, defense)
     {
@@ -14,37 +13,24 @@ public class Player : Character
     public override (int X, int Y) GetMove()
     {
         (int X,int Y) move;
-        if (Console.KeyAvailable)
+        switch (Direction)
         {
-            _keyInfo = Console.ReadKey(true);
-            _consoleKey = _keyInfo.Key;
-        }
-        //ConsoleKeyInfo inputInfo = Console.ReadKey(true);
-        //switch (inputInfo.Key)
-        switch (_consoleKey)
-        {
-            case ConsoleKey.UpArrow:
-            case ConsoleKey.W:
+            case Direction.Up:
                 move = (Position.X, Position.Y - 1);
                 break;
-            case ConsoleKey.RightArrow:
-            case ConsoleKey.D:
+            case Direction.Right:
                 move = (Position.X + 1, Position.Y); 
                 break;
-            case ConsoleKey.DownArrow:
-            case ConsoleKey.S:
+            case Direction.Down:
                 move = (Position.X, Position.Y + 1);
                 break;
-            case ConsoleKey.LeftArrow:
-            case ConsoleKey.A:
+            case Direction.Left:
                 move = (Position.X - 1, Position.Y);
                 break;
             default:
                 move = Position;
                 break;
         }
-
-        _consoleKey = ConsoleKey.X;
         return move;
     }
 

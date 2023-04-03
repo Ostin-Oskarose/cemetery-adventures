@@ -1,4 +1,5 @@
-﻿using Cemetery_Adventure_Logic;
+﻿using Cemetery_Adventure.Inputs;
+using Cemetery_Adventure_Logic;
 using Cemetery_Adventure.Outputs;
 using Cemetery_Adventure_Logic.Entity.Character;
 
@@ -16,6 +17,8 @@ namespace Cemetery_Adventure
                 Output.Init();
                 Output.DisplayBoard(game);
                 Output.DisplayPlayerInformation(game);
+                var playerDirection = Input.GetMovementDirection();
+                game.Player.Direction = playerDirection;
                 game.Update();
                 if (!game.PlayerIsAlive)
                 {
