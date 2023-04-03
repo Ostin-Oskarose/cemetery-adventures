@@ -15,9 +15,9 @@ namespace Cemetery_Adventure_Logic
 
         public Board GameBoard { get; set; }
 
-        public Game()
+        public Game(string playerName)
         {
-            Player = new Player("Player", (1, 1), 20, 5, 0);
+            Player = new Player(playerName, (1, 1), 20, 5, 0);
             Floor = 1;
             GameBoard = new Board(_height, _width, Player, Floor);
         }

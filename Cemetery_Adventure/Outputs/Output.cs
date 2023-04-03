@@ -37,6 +37,7 @@ namespace Cemetery_Adventure.Outputs
 
         internal static void DisplayPlayerInformation(Game game)
         {
+            Console.WriteLine(game.Player.Name);
             Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5}");
             if (game.Player.GetInventory().Count > 0)
             {
@@ -50,6 +51,11 @@ namespace Cemetery_Adventure.Outputs
             {
                 Console.WriteLine($"{new string(' ',30)}");
             }
+        }
+
+        public static void DisplayPlayerNamePrompt()
+        {
+            Console.WriteLine("Enter player name: ");
         }
     }
 }

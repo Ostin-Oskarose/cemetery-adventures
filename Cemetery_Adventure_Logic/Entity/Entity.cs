@@ -4,7 +4,7 @@ namespace Cemetery_Adventure_Logic.Entity;
 
 public abstract class Entity
 {
-    protected string Name { get; private set; }
+    public string Name { get; private set; }
     public abstract char Symbol { get; }
     public (int X, int Y) Position;
 

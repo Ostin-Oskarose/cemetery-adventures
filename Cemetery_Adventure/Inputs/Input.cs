@@ -35,4 +35,11 @@ public static class Input
             return Direction.None;
         }
     }
+
+    public static string GetPlayerName()
+    {
+        var name = Console.ReadLine();
+        Console.Clear();
+        return name;
+    }
 }

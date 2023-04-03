@@ -9,7 +9,9 @@ namespace Cemetery_Adventure
     {
         static void Main(string[] args)
         {
-            var game = new Game();
+            Output.DisplayPlayerNamePrompt();
+            var playerName = Input.GetPlayerName();
+            var game = new Game(playerName);
             var gameRunning = true;
 
             while (gameRunning)
