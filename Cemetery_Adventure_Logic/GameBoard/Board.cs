@@ -1,6 +1,7 @@
-﻿using Cemetery_Adventure_Logic.Entity.Character.Enemy;
-using Cemetery_Adventure_Logic.Entity;
+﻿using Cemetery_Adventure_Logic.Entity;
 using Cemetery_Adventure_Logic.Entity.Character;
+using Cemetery_Adventure_Logic.Entity.Character.Enemy;
+using Cemetery_Adventure_Logic.Item;
 using Cemetery_Adventure_Logic.Item.Equipment;
 
 namespace Cemetery_Adventure_Logic.GameBoard
@@ -11,8 +12,10 @@ namespace Cemetery_Adventure_Logic.GameBoard
         private int Height { get; }
         public List<Enemy> EnemyList { get; }
         public Entity.Entity[,] BoardArray { get; set; }
+        private int ItemDropChance { get; }
 
-        private Random random = new Random();
+        private const int MinDropChance = 60;
+        private Random _random = new Random();
 
         public Board(int height, int width, Player player, int floor)
         {
@@ -21,6 +24,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
             EnemyList = new List<Enemy>();
             BoardArray = new Entity.Entity[Height, Width];
             BoardArray[player.Position.Y, player.Position.X] = player;
+            ItemDropChance = _random.Next(MinDropChance, 101);
             CreateBorders();
             CreateStairs(floor);
             GenerateEnemies(floor);
@@ -44,13 +48,13 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         private void GenerateEnemies(int floor)
         {
-            int minAmount = (int)Math.Ceiling((double)(Height * Width / 300 + 1));
-            int maxAmount = (int)Math.Ceiling((double)(Height *  Width / 120));
+            int minAmount = (int)Math.Ceiling((double)(Height * Width / 180 + 1));
+            int maxAmount = (int)Math.Ceiling((double)(Height * Width / 80));
             var availableEnemiesList = Enum.GetValues<Enemies>().Where(x => (int)x < floor).ToList();
 
             foreach (var enemy in availableEnemiesList)
             {
-                int amount = random.Next(minAmount, maxAmount);
+                int amount = _random.Next(minAmount, maxAmount);
                 CreateEnemies(enemy, amount);
             }
         }
@@ -61,8 +65,8 @@ namespace Cemetery_Adventure_Logic.GameBoard
             {
                 do
                 {
-                    int x = random.Next(0, Width - 1);
-                    int y = random.Next(0, Height - 1);
+                    int x = _random.Next(0, Width - 1);
+                    int y = _random.Next(0, Height - 1);
 
                     if (BoardArray[y, x] == null)
                     {
@@ -77,6 +81,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
                         };
                         EnemyList.Add((Enemy)BoardArray[y, x]);
+                        ItemGenerator.GenerateItemToEnemy((Enemy)BoardArray[y, x], ItemDropChance);
                         break;
                     }
                 } while (true);
@@ -85,7 +90,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         private void GiveKeyToEnemy()
         {
-            var randomIndex = random.Next(EnemyList.Count);
+            var randomIndex = _random.Next(EnemyList.Count);
             var key = new Key();
             EnemyList[randomIndex].AddItemToInventory(key);
         }
@@ -99,11 +104,11 @@ namespace Cemetery_Adventure_Logic.GameBoard
 
         public void CreateTombs()
         {
-            var numTombs = random.Next(15, 25);
+            var numTombs = _random.Next(15, 25);
             for (var i = 0; i < numTombs; i++)
             {
-                var x = random.Next(1, Width - 2);
-                var y = random.Next(1, Height - 2);
+                var x = _random.Next(1, Width - 2);
+                var y = _random.Next(1, Height - 2);
                 if (BoardArray[y, x] == null)
                 {
                     BoardArray[y, x] = new BoardItem((y, x), "+");
@@ -115,8 +120,8 @@ namespace Cemetery_Adventure_Logic.GameBoard
         {
             while (true)
             {
-                var x = random.Next(1, Width - 2);
-                var y = random.Next(1, Height - 2);
+                var x = _random.Next(1, Width - 2);
+                var y = _random.Next(1, Height - 2);
                 if (BoardArray[y, x] == null)
                 {
                     BoardArray[y, x] = new Stairs((y, x), floor);

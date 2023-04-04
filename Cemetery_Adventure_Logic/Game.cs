@@ -6,8 +6,8 @@ namespace Cemetery_Adventure_Logic
 {
     public class Game
     {
-        private int _width = 20;
-        private int _height = 20;
+        private const int Width = 30;
+        private const int Height = 30;
         public Player Player;
         public int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
@@ -19,11 +19,11 @@ namespace Cemetery_Adventure_Logic
         {
             Player = new Player(playerName, (1, 1), 20, 5, 0);
             Floor = 1;
-            GameBoard = new Board(_height, _width, Player, Floor);
+            GameBoard = new Board(Height, Width, Player, Floor);
         }
 
         public void Update()
-        {
+        {//TODO Monsters can kill each other
             PlayerTurn();
             if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
             {
@@ -40,7 +40,7 @@ namespace Cemetery_Adventure_Logic
 
         public bool ValidateMoveWithinBounds((int X, int Y) move)
         {
-            return move is { X: >= 0, Y: >= 0 } && move.X < _width && move.Y < _height;
+            return move is { X: >= 0, Y: >= 0 } && move.X < Width && move.Y < Height;
         }
 
         public void EnemiesTurn()
@@ -83,20 +83,29 @@ namespace Cemetery_Adventure_Logic
                                 character.Attack(target);
                             }
                             return;
+
                         case CollisionType.Obstacle:
                             var obstacle = GameBoard.BoardArray[move.Y, move.X];
                             if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
                             {
-                                Floor = stairs.LevelNumber + 1;
-                                GameBoard = new Board(_height, _width, Player, Floor);
-                                Player.RemoveItemFromInventory("Key");
+                                CreateNewBoard(stairs, character);
                             }
                             return;
+
                         case CollisionType.Item:
                             if (character != Player) return;
 
                             var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
+
+                            if (Player.SameTypeItem(item))
+                            {
+                                var worstItem = Player.WorstItem(item);
+                                if (worstItem == item) break;
+                                Player.RemoveItemFromInventory(worstItem.Name);
+                            }
+
                             Player.AddItemToInventory(item);
+                            Player.UpdateStatistics(item);
                             break;
                     }
                 }
@@ -114,13 +123,38 @@ namespace Cemetery_Adventure_Logic
                 {
                     foreach (var item in enemy.GetInventory())
                     {
-                        Player.AddItemToInventory(item);
+                        if (item.Name == "Key")
+                        {
+                            Player.AddItemToInventory(item);
+                        }
+                        else
+                        {
+                            GameBoard.BoardArray[enemy.Position.Y, enemy.Position.X] =
+                                new FloorItem(item, enemy.Position);
+                        }
                     }
-                    GameBoard.RemoveEntity(enemy.Position);
+
+                    if (GameBoard.BoardArray[enemy.Position.Y, enemy.Position.X] == enemy)
+                    {
+                        GameBoard.RemoveEntity(enemy.Position);
+                    }
                 }
             }
 
             GameBoard.EnemyList.RemoveAll(enemy => !enemy.IsAlive);
+        }
+
+        private void CreateNewBoard(Stairs stairs, Character character)
+        {
+            Random random = new Random();
+            int height = random.Next((Height / 2), Height);
+            int width = random.Next((Width / 2), Width);
+
+            Floor = stairs.LevelNumber + 1;
+            character.Move(1, 1);
+            GameBoard = new Board(height, width, Player, Floor);
+            Player.RemoveItemFromInventory("Key");
+            Console.Clear();//TODO get method from Output.cs
         }
     }
 }

@@ -29,7 +29,7 @@ public abstract class Character : Entity
     public virtual void ApplyDamage(int damage)
     {
         damage -= Defense;
-        if (damage < 0) damage = 0;
+        if (damage <= 0) damage = 1;
         HP -= damage;
     }
 
@@ -52,5 +52,26 @@ public abstract class Character : Entity
     public void RemoveItemFromInventory(string itemName)
     {
         Inventory.RemoveAll(item => item.Name == itemName);
+    }
+
+    public void DamageFromItem(int damage)
+    {
+        Damage = damage;
+    }
+
+    public void DefenseFromItem(int defense)
+    {
+        Defense = defense;
+    }
+
+    public void RestoreHealth(int healthPoints)
+    {
+        HP += healthPoints;
+        if (HP > MaxHP) HP = MaxHP;
+    }
+
+    public void IncreseMaxHP(int maxHP)
+    {
+        MaxHP += maxHP;
     }
 }
