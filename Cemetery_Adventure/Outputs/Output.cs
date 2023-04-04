@@ -55,7 +55,15 @@ namespace Cemetery_Adventure.Outputs
 
         public static void DisplayPlayerNamePrompt()
         {
+            Console.Clear();
             Console.WriteLine("Enter player name: ");
+        }
+
+        public static void DisplayMainMenu()
+        {
+            Console.Clear();
+            var options = Enum.GetValues(typeof(MainMenuOption)).Cast<MainMenuOption>().ToList();
+            options.ForEach(option => Console.WriteLine($"({(int)option}) {Enum.GetName(option)}"));
         }
     }
 }

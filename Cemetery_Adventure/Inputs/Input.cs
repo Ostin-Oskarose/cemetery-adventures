@@ -42,4 +42,17 @@ public static class Input
         Console.Clear();
         return name;
     }
+
+    public static MainMenuOption GetMainMenuOption()
+    {
+        while (true)
+        {
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out int selection))
+            {
+                var option = (MainMenuOption)selection;
+                return option;
+            }
+        }
+    }
 }
