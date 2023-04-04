@@ -39,7 +39,6 @@ public static class Input
     public static string GetPlayerName()
     {
         var name = Console.ReadLine();
-        Console.Clear();
         return name;
     }
 

@@ -82,5 +82,10 @@ namespace Cemetery_Adventure.Outputs
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, currentLineCursor);
         }
+
+        internal static void InitGameStart()
+        {
+            Console.Clear();
+        }
     }
 }

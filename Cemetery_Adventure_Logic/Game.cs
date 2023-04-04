@@ -24,6 +24,14 @@ namespace Cemetery_Adventure_Logic
             MessageBuffer = new MessageBuffer(3);
         }
 
+        public Game(Player player, int floor)
+        {
+            Player = player;
+            Floor = floor;
+            GameBoard = new Board(_height, _width, Player, Floor);
+            MessageBuffer = new MessageBuffer(3);
+        }
+
         public void Update()
         {
             PlayerTurn();

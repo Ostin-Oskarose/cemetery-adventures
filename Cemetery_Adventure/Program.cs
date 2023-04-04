@@ -13,14 +13,16 @@ namespace Cemetery_Adventure
             {
                 Output.DisplayMainMenu();
                 var menuOption = Input.GetMainMenuOption();
+                Game game;
                 switch (menuOption)
                 {
                     case MainMenuOption.NewGame:
-                        var game = NewGame();
+                        game = NewGame();
                         StartGame(game);
                         break;
                     case MainMenuOption.LoadGame:
-                        throw new NotImplementedException();
+                        game = LoadGame();
+                        StartGame(game);
                         break;
                     case MainMenuOption.Exit:
                         return;
@@ -36,8 +38,17 @@ namespace Cemetery_Adventure
             return game;
         }
 
+        private static Game LoadGame()
+        {
+            var floor = 3;
+            var player = new Player("Bob", (1, 1), 20, 5, 0);
+            var game = new Game(player, floor);
+            return game;
+        }
+
         private static void StartGame(Game game)
         {
+            Output.InitGameStart();
             var gameRunning = true;
 
             while (gameRunning)
