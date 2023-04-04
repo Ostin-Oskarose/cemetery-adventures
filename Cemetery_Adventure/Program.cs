@@ -44,6 +44,7 @@ namespace Cemetery_Adventure
             {
                 Output.Init();
                 Output.DisplayBoard(game);
+                Output.DisplayMessageBuffer(game);
                 Output.DisplayPlayerInformation(game);
                 var playerDirection = Input.GetMovementDirection();
                 game.Player.Direction = playerDirection;

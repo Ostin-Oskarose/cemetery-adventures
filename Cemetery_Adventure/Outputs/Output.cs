@@ -28,6 +28,15 @@ namespace Cemetery_Adventure.Outputs
             }
         }
 
+        public static void DisplayMessageBuffer(Game game)
+        {
+            for (var index = 0; index < game.MessageBuffer.Size; index++)
+            {
+                ClearCurrentConsoleLine();
+                Console.WriteLine(game.MessageBuffer.Messages.ElementAtOrDefault(index));
+            }
+        }
+
         public static void PrintGameOver()
         {
             Console.Clear();
@@ -64,6 +73,14 @@ namespace Cemetery_Adventure.Outputs
             Console.Clear();
             var options = Enum.GetValues(typeof(MainMenuOption)).Cast<MainMenuOption>().ToList();
             options.ForEach(option => Console.WriteLine($"({(int)option}) {Enum.GetName(option)}"));
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
         }
     }
 }
