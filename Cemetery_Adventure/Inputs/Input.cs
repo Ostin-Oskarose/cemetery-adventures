@@ -38,7 +38,9 @@ public static class Input
 
     public static string GetPlayerName()
     {
+        Console.CursorVisible = true;
         var name = Console.ReadLine();
+        Console.CursorVisible = false;
         return name;
     }
 
@@ -46,10 +48,12 @@ public static class Input
     {
         while (true)
         {
+            Console.CursorVisible = true;
             var input = Console.ReadLine();
             if (int.TryParse(input, out int selection))
             {
                 var option = (MainMenuOption)selection;
+                Console.CursorVisible = false;
                 return option;
             }
         }
