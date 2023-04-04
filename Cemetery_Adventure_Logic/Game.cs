@@ -82,7 +82,8 @@ namespace Cemetery_Adventure_Logic
                             var target = GameBoard.BoardArray[move.Y, move.X] as Character;
                             if (target != character)
                             {
-                                character.Attack(target);
+                                var damage = character.Attack(target);
+                                MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
                             }
                             return;
                         case CollisionType.Obstacle:
