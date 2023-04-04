@@ -39,6 +39,7 @@ namespace Cemetery_Adventure.Outputs
         {
             Console.WriteLine(game.Player.Name);
             Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5}");
+            Console.WriteLine($"Damage: {$"{game.Player.Damage}",-5}");
             if (game.Player.GetInventory().Count > 0)
             {
                 Console.Write("Inventory: ");
