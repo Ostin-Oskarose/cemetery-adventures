@@ -63,6 +63,7 @@ namespace Cemetery_Adventure
                 if (!game.PlayerIsAlive)
                 {
                     Output.PrintGameOver();
+                    Input.WaitForInput();
                     gameRunning = false;
                 }
             }

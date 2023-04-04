@@ -42,6 +42,7 @@ namespace Cemetery_Adventure.Outputs
             Console.Clear();
             Console.WriteLine("GAME OVER");
             Console.WriteLine("You died!");
+            Console.WriteLine("(Press enter to continue)");
         }
 
         internal static void DisplayPlayerInformation(Game game)

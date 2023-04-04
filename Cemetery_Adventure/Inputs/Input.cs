@@ -58,4 +58,9 @@ public static class Input
             }
         }
     }
+
+    public static void WaitForInput()
+    {
+        Console.ReadLine();
+    }
 }
