@@ -28,17 +28,27 @@ namespace Cemetery_Adventure.Outputs
             }
         }
 
+        public static void DisplayMessageBuffer(Game game)
+        {
+            for (var index = 0; index < game.MessageBuffer.Size; index++)
+            {
+                ClearCurrentConsoleLine();
+                Console.WriteLine(game.MessageBuffer.Messages.ElementAtOrDefault(index));
+            }
+        }
+
         public static void PrintGameOver()
         {
             Console.Clear();
             Console.WriteLine("GAME OVER");
             Console.WriteLine("You died!");
+            Console.WriteLine("(Press enter to continue)");
         }
 
         internal static void DisplayPlayerInformation(Game game)
         {
             Console.WriteLine(game.Player.Name);
-            Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5}");
+            Console.WriteLine($"HP: {$"{game.Player.HP}/{game.Player.MaxHP}", -7} Defense: {$"{game.Player.Defense}", -5} Damage: {$"{game.Player.Damage}",-5}");
             if (game.Player.GetInventory().Count > 0)
             {
                 Console.Write("Inventory: ");
@@ -55,7 +65,28 @@ namespace Cemetery_Adventure.Outputs
 
         public static void DisplayPlayerNamePrompt()
         {
+            Console.Clear();
             Console.WriteLine("Enter player name: ");
+        }
+
+        public static void DisplayMainMenu()
+        {
+            Console.Clear();
+            var options = Enum.GetValues(typeof(MainMenuOption)).Cast<MainMenuOption>().ToList();
+            options.ForEach(option => Console.WriteLine($"({(int)option}) {Enum.GetName(option)}"));
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
+
+        internal static void InitGameStart()
+        {
+            Console.Clear();
         }
     }
 }

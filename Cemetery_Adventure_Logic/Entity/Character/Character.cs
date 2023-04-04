@@ -21,16 +21,17 @@ public abstract class Character : Entity
 
     public abstract (int X, int Y) GetMove();
 
-    public virtual void Attack(Character target)
+    public virtual int Attack(Character target)
     {
-        target.ApplyDamage(Damage);
+        return target.ApplyDamage(Damage);
     }
 
-    public virtual void ApplyDamage(int damage)
+    public virtual int ApplyDamage(int damage)
     {
         damage -= Defense;
         if (damage <= 0) damage = 1;
         HP -= damage;
+        return damage;
     }
 
     public virtual void Move(int x, int y)

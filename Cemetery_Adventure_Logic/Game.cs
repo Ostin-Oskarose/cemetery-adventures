@@ -14,12 +14,22 @@ namespace Cemetery_Adventure_Logic
         public bool PlayerIsAlive => Player.IsAlive;
 
         public Board GameBoard { get; set; }
+        public MessageBuffer MessageBuffer { get; private set; }
 
         public Game(string playerName)
         {
             Player = new Player(playerName, (1, 1), 20, 5, 0);
             Floor = 1;
             GameBoard = new Board(Height, Width, Player, Floor);
+            MessageBuffer = new MessageBuffer(3);
+        }
+
+        public Game(Player player, int floor)
+        {
+            Player = player;
+            Floor = floor;
+            GameBoard = new Board(Height, Width, Player, Floor);
+            MessageBuffer = new MessageBuffer(3);
         }
 
         public void Update()
@@ -80,7 +90,8 @@ namespace Cemetery_Adventure_Logic
                             var target = GameBoard.BoardArray[move.Y, move.X] as Character;
                             if (target != character)
                             {
-                                character.Attack(target);
+                                var damage = character.Attack(target);
+                                MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
                             }
                             return;
 
@@ -154,6 +165,7 @@ namespace Cemetery_Adventure_Logic
             character.Move(1, 1);
             GameBoard = new Board(height, width, Player, Floor);
             Player.RemoveItemFromInventory("Key");
+            MessageBuffer.Add("You use the key");
             Console.Clear();//TODO get method from Output.cs
         }
     }

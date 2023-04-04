@@ -38,8 +38,29 @@ public static class Input
 
     public static string GetPlayerName()
     {
+        Console.CursorVisible = true;
         var name = Console.ReadLine();
-        Console.Clear();
+        Console.CursorVisible = false;
         return name;
+    }
+
+    public static MainMenuOption GetMainMenuOption()
+    {
+        while (true)
+        {
+            Console.CursorVisible = true;
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out int selection))
+            {
+                var option = (MainMenuOption)selection;
+                Console.CursorVisible = false;
+                return option;
+            }
+        }
+    }
+
+    public static void WaitForInput()
+    {
+        Console.ReadLine();
     }
 }
