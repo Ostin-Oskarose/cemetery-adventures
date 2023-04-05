@@ -40,7 +40,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 {
                     if ((i == 0 || i == Height - 1) || (j == 0 || j == Width - 1))
                     {
-                        BoardArray[i, j] = new BoardItem((j, i), "#");
+                        BoardArray[i, j] = new Obstacle((j, i), "#");
                     }
                 }
             }
@@ -111,7 +111,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 var y = _random.Next(1, Height - 2);
                 if (BoardArray[y, x] == null)
                 {
-                    BoardArray[y, x] = new BoardItem((y, x), "+");
+                    BoardArray[y, x] = new Obstacle((y, x), "+");
                 }
             }
         }

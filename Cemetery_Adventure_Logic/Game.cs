@@ -65,7 +65,7 @@ namespace Cemetery_Adventure_Logic
             {
                 case Character:
                     return CollisionType.Character;
-                case BoardItem:
+                case Obstacle:
                     return CollisionType.Obstacle;
                 case FloorItem:
                     return CollisionType.Item;
