@@ -53,10 +53,7 @@ namespace Cemetery_Adventure
 
             while (gameRunning)
             {
-                Output.Init();
-                Output.DisplayBoard(game);
-                Output.DisplayMessageBuffer(game);
-                Output.DisplayPlayerInformation(game);
+                Output.DrawUI(game);
                 var playerDirection = Input.GetMovementDirection();
                 game.Player.Direction = playerDirection;
                 game.Update();

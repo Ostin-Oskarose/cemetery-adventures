@@ -4,6 +4,15 @@ namespace Cemetery_Adventure.Outputs
 {
     public class Output
     {
+
+        public static void DrawUI(Game game)
+        {
+            Init();
+            DisplayBoard(game);
+            DisplayMessageBuffer(game);
+            DisplayPlayerInformation(game);
+        }
+
         public static void Init()
         {
             Console.CursorVisible = false;
