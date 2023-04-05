@@ -139,5 +139,10 @@ namespace Cemetery_Adventure_Logic.GameBoard
         {
             BoardArray[position.Y, position.X] = null;
         }
+
+        public bool ValidateMoveWithinBounds((int X, int Y) move)
+        {
+            return move is { X: >= 0, Y: >= 0 } && move.X < Width && move.Y < Height;
+        }
     }
 }

@@ -50,11 +50,6 @@ namespace Cemetery_Adventure_Logic
             CharacterTurn(Player);
         }
 
-        public bool ValidateMoveWithinBounds((int X, int Y) move)
-        {
-            return move is { X: >= 0, Y: >= 0 } && move.X < Width && move.Y < Height;
-        }
-
         public void EnemiesTurn()
         {
             foreach (var enemy in GameBoard.EnemyList)
@@ -82,21 +77,15 @@ namespace Cemetery_Adventure_Logic
         public void CharacterTurn(Character character)
         {
             var move = character.GetMove();
-            if (ValidateMoveWithinBounds(move))
+            if (GameBoard.ValidateMoveWithinBounds(move))
             {
                 if (GameBoard.IsOccupied(move))
                 {
                     switch (GetCollisionType(move))
                     {
                         case CollisionType.Character:
-                            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
-                            if (target != character)
-                            {
-                                var damage = character.Attack(target);
-                                MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
-                            }
+                            ResolveCharacterCollision(character, move);
                             return;
-
                         case CollisionType.Obstacle:
                             var obstacle = GameBoard.BoardArray[move.Y, move.X];
                             if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
@@ -128,6 +117,16 @@ namespace Cemetery_Adventure_Logic
 
                 GameBoard.MoveEntity(character.Position, move);
                 character.Move(move.X, move.Y);
+            }
+        }
+
+        private void ResolveCharacterCollision(Character character, (int X, int Y) move)
+        {
+            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
+            if (target != character)
+            {
+                var damage = character.Attack(target);
+                MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
             }
         }
 
