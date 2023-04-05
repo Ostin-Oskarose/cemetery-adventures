@@ -35,7 +35,7 @@ namespace Cemetery_Adventure_Logic
         }
 
         public void Update()
-        {//TODO Monsters can kill each other
+        {
             PlayerTurn();
             if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
             {
