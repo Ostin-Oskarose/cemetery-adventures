@@ -7,8 +7,8 @@ namespace Cemetery_Adventure_Logic
 {
     public class Game
     {
-        private const int Width = 30;
-        private const int Height = 30;
+        private const int InitialBoardWidth = 30;
+        private const int InitialBoardHeight = 30;
         private const int MessageBufferSize = 5;
         public Player Player;
         public int Floor;
@@ -22,7 +22,7 @@ namespace Cemetery_Adventure_Logic
         {
             Player = new Player(playerName, (1, 1), 20, 5, 0);
             Floor = 1;
-            GameBoard = new Board(Height, Width, Player, Floor);
+            GameBoard = new Board(InitialBoardHeight, InitialBoardWidth, Player, Floor);
             MessageBuffer = new MessageBuffer(MessageBufferSize);
         }
 
@@ -30,7 +30,7 @@ namespace Cemetery_Adventure_Logic
         {
             Player = player;
             Floor = floor;
-            GameBoard = new Board(Height, Width, Player, Floor);
+            GameBoard = new Board(InitialBoardHeight, InitialBoardWidth, Player, Floor);
             MessageBuffer = new MessageBuffer(MessageBufferSize);
         }
 
@@ -90,7 +90,7 @@ namespace Cemetery_Adventure_Logic
                             var obstacle = GameBoard.BoardArray[move.Y, move.X];
                             if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
                             {
-                                CreateNewBoard(stairs, character);
+                                NextFloor(stairs, character);
                             }
                             return;
 
@@ -162,11 +162,11 @@ namespace Cemetery_Adventure_Logic
             GameBoard.EnemyList.RemoveAll(enemy => !enemy.IsAlive);
         }
 
-        private void CreateNewBoard(Stairs stairs, Character character)
+        private void NextFloor(Stairs stairs, Character character)
         {
             Random random = new Random();
-            int height = random.Next((Height / 2), Height);
-            int width = random.Next((Width / 2), Width);
+            int height = random.Next((InitialBoardHeight / 2), InitialBoardHeight);
+            int width = random.Next((InitialBoardWidth / 2), InitialBoardWidth);
 
             Floor = stairs.LevelNumber + 1;
             character.Move(1, 1);
