@@ -2,6 +2,7 @@
 using Cemetery_Adventure_Logic;
 using Cemetery_Adventure.Outputs;
 using Cemetery_Adventure_Logic.Entity.Character;
+using Cemetery_Adventure_DB.Manager;
 
 namespace Cemetery_Adventure
 {
@@ -40,6 +41,8 @@ namespace Cemetery_Adventure
 
         private static Game LoadGame()
         {
+            var test = DBManager.LoadGame(1);
+            var test2 = DBManager.GetAllSavedGames();
             var floor = 3;
             var player = new Player("Bob", (1, 1), 20, 5, 0);
             var game = new Game(player, floor);

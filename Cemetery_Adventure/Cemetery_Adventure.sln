@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cemetery_Adventure", "Cemetery_Adventure.csproj", "{C221C74B-7C0B-4388-AD61-29580F6CF374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cemetery_Adventure", "Cemetery_Adventure.csproj", "{C221C74B-7C0B-4388-AD61-29580F6CF374}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cemetery_Adventure_Logic", "..\Cemetery_Adventure_Logic\Cemetery_Adventure_Logic.csproj", "{0EA0180B-F68D-4FCA-AAE6-D9D986D52353}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cemetery_Adventure_Logic", "..\Cemetery_Adventure_Logic\Cemetery_Adventure_Logic.csproj", "{0EA0180B-F68D-4FCA-AAE6-D9D986D52353}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cemetery_Adventure_DB", "..\Cemetery_Adventure_DB\Cemetery_Adventure_DB.csproj", "{D07AB13E-FC2A-4679-8121-A66B5ECB5034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{0EA0180B-F68D-4FCA-AAE6-D9D986D52353}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EA0180B-F68D-4FCA-AAE6-D9D986D52353}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EA0180B-F68D-4FCA-AAE6-D9D986D52353}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D07AB13E-FC2A-4679-8121-A66B5ECB5034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D07AB13E-FC2A-4679-8121-A66B5ECB5034}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D07AB13E-FC2A-4679-8121-A66B5ECB5034}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D07AB13E-FC2A-4679-8121-A66B5ECB5034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Cemetery_Adventure_DB": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "connectionString": "Server=localhost;Database=Cemetery_Adventure;Trusted_Connection=True;Encrypt=False;"
+      }
+    }
+  }
+}
