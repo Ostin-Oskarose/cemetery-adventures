@@ -1,4 +1,5 @@
-﻿using Cemetery_Adventure_Logic.Entity;
+﻿using System.Runtime.InteropServices;
+using Cemetery_Adventure_Logic.Entity;
 using Cemetery_Adventure_Logic.Entity.Character;
 using Cemetery_Adventure_Logic.GameBoard;
 
@@ -8,6 +9,7 @@ namespace Cemetery_Adventure_Logic
     {
         private const int Width = 30;
         private const int Height = 30;
+        private const int MessageBufferSize = 5;
         public Player Player;
         public int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
@@ -21,7 +23,7 @@ namespace Cemetery_Adventure_Logic
             Player = new Player(playerName, (1, 1), 20, 5, 0);
             Floor = 1;
             GameBoard = new Board(Height, Width, Player, Floor);
-            MessageBuffer = new MessageBuffer(3);
+            MessageBuffer = new MessageBuffer(MessageBufferSize);
         }
 
         public Game(Player player, int floor)
@@ -29,7 +31,7 @@ namespace Cemetery_Adventure_Logic
             Player = player;
             Floor = floor;
             GameBoard = new Board(Height, Width, Player, Floor);
-            MessageBuffer = new MessageBuffer(3);
+            MessageBuffer = new MessageBuffer(MessageBufferSize);
         }
 
         public void Update()
@@ -108,6 +110,8 @@ namespace Cemetery_Adventure_Logic
 
                             var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
 
+                            MessageBuffer.Add($"You found a {item.Name}");
+
                             if (Player.SameTypeItem(item))
                             {
                                 var worstItem = Player.WorstItem(item);
@@ -115,6 +119,7 @@ namespace Cemetery_Adventure_Logic
                                 Player.RemoveItemFromInventory(worstItem.Name);
                             }
 
+                            MessageBuffer.Add($"You equip the {item.Name}");
                             Player.AddItemToInventory(item);
                             Player.UpdateStatistics(item);
                             break;
@@ -136,6 +141,7 @@ namespace Cemetery_Adventure_Logic
                     {
                         if (item.Name == "Key")
                         {
+                            MessageBuffer.Add("You found a key");
                             Player.AddItemToInventory(item);
                         }
                         else
