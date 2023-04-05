@@ -4,7 +4,7 @@
     {
         public int RestorePoints { get; set; }
 
-        public HealthPotion(string name) : base(name)
+        public HealthPotion() : base("Health Potion")
         {
             RestorePoints = 20;
         }
