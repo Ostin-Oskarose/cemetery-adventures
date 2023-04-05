@@ -71,7 +71,7 @@ public abstract class Character : Entity
         if (HP > MaxHP) HP = MaxHP;
     }
 
-    public void IncreseMaxHP(int maxHP)
+    public void IncreaseMaxHP(int maxHP)
     {
         MaxHP += maxHP;
     }

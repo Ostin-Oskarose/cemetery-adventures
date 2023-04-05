@@ -46,7 +46,7 @@ namespace Cemetery_Adventure_Logic.Item
             return consumableType switch
             {
                 ConsumableTypes.HealthPotion => new HealthPotion("Health potion"),
-                ConsumableTypes.MaxHealthPotion => new MaxHealthPotion("Increase Max HP")
+                ConsumableTypes.MaxHealthPotion => new MaxHealthPotion()
             };
         }
 
