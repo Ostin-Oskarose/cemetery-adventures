@@ -8,8 +8,8 @@ namespace Cemetery_Adventure_Logic.GameBoard
 {
     public class Board
     {
-        private int Width { get; }
-        private int Height { get; }
+        public int Width { get; init; }
+        public int Height { get; init; }
         public List<Enemy> EnemyList { get; }
         public Entity.Entity[,] BoardArray { get; set; }
         private int ItemDropChance { get; }

@@ -5,12 +5,20 @@ namespace Cemetery_Adventure.Outputs
     public class Output
     {
 
-        public static void DrawUI(Game game)
+        public static void DrawUi(Game game)
         {
             Init();
             DisplayBoard(game);
+            DisplayUiDivider(game);
             DisplayMessageBuffer(game);
+            DisplayUiDivider(game);
             DisplayPlayerInformation(game);
+        }
+
+        private static void DisplayUiDivider(Game game)
+        {
+            var width = game.GameBoard.Width;
+            Console.WriteLine(new string('-', width * 2));
         }
 
         public static void Init()
