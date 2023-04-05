@@ -70,7 +70,7 @@ namespace Cemetery_Adventure_Logic
                 case FloorItem:
                     return CollisionType.Item;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException("Unknown Collision");
             }
         }
 
