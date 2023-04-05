@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using Cemetery_Adventure_Logic.Entity;
 using Cemetery_Adventure_Logic.Entity.Character;
+using Cemetery_Adventure_Logic.Entity.Character.Enemy;
 using Cemetery_Adventure_Logic.GameBoard;
 
 namespace Cemetery_Adventure_Logic
@@ -132,34 +133,30 @@ namespace Cemetery_Adventure_Logic
 
         public void RemoveDeadEnemies()
         {
-            foreach (var enemy in GameBoard.EnemyList)
+            foreach (var enemy in GameBoard.EnemyList.Where(enemy => !enemy.IsAlive))
             {
-                if (!enemy.IsAlive)
+                GameBoard.RemoveEntity(enemy.Position);
+                DropItemsOrGiveKey(enemy);
+                MessageBuffer.Add($"{enemy.Name} died");
+            }
+            GameBoard.EnemyList.RemoveAll(enemy => !enemy.IsAlive);
+        }
+
+        private void DropItemsOrGiveKey(Enemy enemy)
+        {
+            foreach (var item in enemy.GetInventory())
+            {
+                if (item.Name == "Key")
                 {
-                    foreach (var item in enemy.GetInventory())
-                    {
-                        if (item.Name == "Key")
-                        {
-                            MessageBuffer.Add("You found a key");
-                            Player.AddItemToInventory(item);
-                        }
-                        else
-                        {
-                            GameBoard.BoardArray[enemy.Position.Y, enemy.Position.X] =
-                                new FloorItem(item, enemy.Position);
-                        }
-                    }
-
-                    if (GameBoard.BoardArray[enemy.Position.Y, enemy.Position.X] == enemy)
-                    {
-                        GameBoard.RemoveEntity(enemy.Position);
-                    }
-
-                    MessageBuffer.Add($"{enemy.Name} died");
+                    MessageBuffer.Add("You found a key");
+                    Player.AddItemToInventory(item);
+                }
+                else
+                {
+                    GameBoard.BoardArray[enemy.Position.Y, enemy.Position.X] =
+                        new FloorItem(item, enemy.Position);
                 }
             }
-
-            GameBoard.EnemyList.RemoveAll(enemy => !enemy.IsAlive);
         }
 
         private void NextFloor(Stairs stairs, Character character)
