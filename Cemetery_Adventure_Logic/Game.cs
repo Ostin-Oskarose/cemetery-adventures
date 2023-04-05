@@ -15,7 +15,7 @@ namespace Cemetery_Adventure_Logic
         public int Floor;
         private DateTime LastEnemyUpdate = DateTime.Now;
         public bool PlayerIsAlive => Player.IsAlive;
-
+        public bool NewLevel { get; private set; }
         public Board GameBoard { get; set; }
         public MessageBuffer MessageBuffer { get; private set; }
 
@@ -37,6 +37,7 @@ namespace Cemetery_Adventure_Logic
 
         public void Update()
         {
+            NewLevel = false;
             PlayerTurn();
             if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
             {
@@ -170,7 +171,7 @@ namespace Cemetery_Adventure_Logic
             GameBoard = new Board(height, width, Player, Floor);
             Player.RemoveItemFromInventory("Key");
             MessageBuffer.Add("You use the key");
-            Console.Clear();//TODO get method from Output.cs
+            NewLevel = true;
         }
     }
 }
