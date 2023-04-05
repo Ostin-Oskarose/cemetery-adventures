@@ -78,57 +78,57 @@ namespace Cemetery_Adventure_Logic
         public void CharacterTurn(Character character)
         {
             var move = character.GetMove();
-            if (GameBoard.ValidateMoveWithinBounds(move))
+            if (!GameBoard.ValidateMoveWithinBounds(move)) return;
+            if (!GameBoard.IsOccupied(move))
             {
-                if (GameBoard.IsOccupied(move))
-                {
-                    switch (GetCollisionType(move))
-                    {
-                        case CollisionType.Character:
-                            ResolveCharacterCollision(character, move);
-                            return;
-                        case CollisionType.Obstacle:
-                            var obstacle = GameBoard.BoardArray[move.Y, move.X];
-                            if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
-                            {
-                                NextFloor(stairs, character);
-                            }
-                            return;
-
-                        case CollisionType.Item:
-                            if (character != Player) return;
-
-                            var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
-
-                            MessageBuffer.Add($"You found a {item.Name}");
-
-                            if (Player.SameTypeItem(item))
-                            {
-                                var worstItem = Player.WorstItem(item);
-                                if (worstItem == item) break;
-                                Player.RemoveItemFromInventory(worstItem.Name);
-                            }
-
-                            MessageBuffer.Add($"You equip the {item.Name}");
-                            Player.AddItemToInventory(item);
-                            Player.UpdateStatistics(item);
-                            break;
-                    }
-                }
-
                 GameBoard.MoveEntity(character.Position, move);
                 character.Move(move.X, move.Y);
+            }
+            else
+            {
+                switch (GetCollisionType(move))
+                {
+                    case CollisionType.Character:
+                        ResolveCharacterCollision(character, move);
+                        return;
+                    case CollisionType.Obstacle:
+                        var obstacle = GameBoard.BoardArray[move.Y, move.X];
+                        if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
+                        {
+                            NextFloor(stairs, character);
+                        }
+                        break;
+                    case CollisionType.Item:
+                        if (character != Player) return;
+
+                        var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
+
+                        GameBoard.MoveEntity(character.Position, move);
+                        character.Move(move.X, move.Y);
+
+                        MessageBuffer.Add($"You found a {item.Name}");
+
+                        if (Player.SameTypeItem(item))
+                        {
+                            var worstItem = Player.WorstItem(item);
+                            if (worstItem == item) break;
+                            Player.RemoveItemFromInventory(worstItem.Name);
+                        }
+
+                        MessageBuffer.Add($"You equip the {item.Name}");
+                        Player.AddItemToInventory(item);
+                        Player.UpdateStatistics(item);
+                        break;
+                }
             }
         }
 
         private void ResolveCharacterCollision(Character character, (int X, int Y) move)
         {
             var target = GameBoard.BoardArray[move.Y, move.X] as Character;
-            if (target != character)
-            {
-                var damage = character.Attack(target);
-                MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
-            }
+            if (target == character) return;
+            var damage = character.Attack(target);
+            MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
         }
 
         public void RemoveDeadEnemies()
@@ -161,9 +161,9 @@ namespace Cemetery_Adventure_Logic
 
         private void NextFloor(Stairs stairs, Character character)
         {
-            Random random = new Random();
-            int height = random.Next((InitialBoardHeight / 2), InitialBoardHeight);
-            int width = random.Next((InitialBoardWidth / 2), InitialBoardWidth);
+            var random = new Random();
+            var height = random.Next((InitialBoardHeight / 2), InitialBoardHeight);
+            var width = random.Next((InitialBoardWidth / 2), InitialBoardWidth);
 
             Floor = stairs.LevelNumber + 1;
             character.Move(1, 1);
