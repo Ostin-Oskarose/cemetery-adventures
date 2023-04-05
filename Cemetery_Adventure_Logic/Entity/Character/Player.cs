@@ -104,7 +104,7 @@ public class Player : Character
         }
         else if (item is MaxHealthPotion maxHealthPotion)
         {
-            IncreseMaxHP(maxHealthPotion.IncreseMaxHP);
+            IncreaseMaxHP(maxHealthPotion.IncreaseMaxHP);
         }
 
         RemoveItemFromInventory(item.Name);

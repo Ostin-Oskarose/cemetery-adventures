@@ -2,10 +2,10 @@
 {
     public class MaxHealthPotion : Consumable
     {
-        public int IncreseMaxHP { get; set; }
-        public MaxHealthPotion(string name) : base(name)
+        public int IncreaseMaxHP { get; set; }
+        public MaxHealthPotion() : base("Max HP Potion")
         {
-            IncreseMaxHP = 5;
+            IncreaseMaxHP = 5;
         }
     }
 }

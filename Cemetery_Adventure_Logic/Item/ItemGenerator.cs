@@ -45,8 +45,8 @@ namespace Cemetery_Adventure_Logic.Item
                 .FirstOrDefault(consumable => (int)consumable == random.Next(0, consumableTypesAmount));
             return consumableType switch
             {
-                ConsumableTypes.HealthPotion => new HealthPotion("Health potion"),
-                ConsumableTypes.MaxHealthPotion => new MaxHealthPotion("Increase Max HP")
+                ConsumableTypes.HealthPotion => new HealthPotion(),
+                ConsumableTypes.MaxHealthPotion => new MaxHealthPotion()
             };
         }
 

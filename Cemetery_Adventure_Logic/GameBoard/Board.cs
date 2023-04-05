@@ -8,8 +8,8 @@ namespace Cemetery_Adventure_Logic.GameBoard
 {
     public class Board
     {
-        private int Width { get; }
-        private int Height { get; }
+        public int Width { get; init; }
+        public int Height { get; init; }
         public List<Enemy> EnemyList { get; }
         public Entity.Entity[,] BoardArray { get; set; }
         private int ItemDropChance { get; }
@@ -40,7 +40,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 {
                     if ((i == 0 || i == Height - 1) || (j == 0 || j == Width - 1))
                     {
-                        BoardArray[i, j] = new BoardItem((j, i), "#");
+                        BoardArray[i, j] = new Obstacle((j, i), "#");
                     }
                 }
             }
@@ -111,7 +111,7 @@ namespace Cemetery_Adventure_Logic.GameBoard
                 var y = _random.Next(1, Height - 2);
                 if (BoardArray[y, x] == null)
                 {
-                    BoardArray[y, x] = new BoardItem((y, x), "+");
+                    BoardArray[y, x] = new Obstacle((y, x), "+");
                 }
             }
         }
@@ -138,6 +138,11 @@ namespace Cemetery_Adventure_Logic.GameBoard
         public void RemoveEntity((int X, int Y) position)
         {
             BoardArray[position.Y, position.X] = null;
+        }
+
+        public bool ValidateMoveWithinBounds((int X, int Y) move)
+        {
+            return move is { X: >= 0, Y: >= 0 } && move.X < Width && move.Y < Height;
         }
     }
 }

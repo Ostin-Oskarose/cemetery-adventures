@@ -2,7 +2,7 @@
 
 namespace Cemetery_Adventure_Logic.GameBoard;
 
-public class Stairs : BoardItem
+public class Stairs : Obstacle
 {
     public int LevelNumber { get; }
 
