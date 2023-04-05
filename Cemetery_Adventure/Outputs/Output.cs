@@ -1,4 +1,5 @@
-﻿using Cemetery_Adventure_Logic;
+﻿using System.Text;
+using Cemetery_Adventure_Logic;
 
 namespace Cemetery_Adventure.Outputs
 {
@@ -87,6 +88,25 @@ namespace Cemetery_Adventure.Outputs
         internal static void InitGameStart()
         {
             Console.Clear();
+        }
+
+        internal static void DisplayAllSavedGames(List<Dictionary<string, string>> savedGamesList)
+        {
+            Console.Clear();
+            foreach (var savedGame in savedGamesList)
+            {
+                var sb = new StringBuilder()
+                    .Append($"Id - {savedGame["id"]} ")
+                    .Append($"Save time - {savedGame["save_time"]} ")
+                    .Append($"Player Name - {savedGame["player_name"]} ")
+                    .Append($"Floor - {savedGame["floor"]}");
+                Console.WriteLine(sb);
+            }
+        }
+
+        internal static void DisplayLoadGamePrompt()
+        {
+            Console.WriteLine("\nEnter game ID to load: ");
         }
     }
 }

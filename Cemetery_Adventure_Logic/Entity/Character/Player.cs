@@ -109,4 +109,34 @@ public class Player : Character
 
         RemoveItemFromInventory(item.Name);
     }
+
+    public int? GetArmorTypeNumberFromInventory()
+    {
+        int? armorTypeNumber = null;
+
+        foreach (var item in Inventory)
+        {
+            if (item is Armor armor)
+            {
+                armorTypeNumber = armor.TypeNumber;
+            }
+        }
+
+        return armorTypeNumber;
+    }
+
+    public int? GetWeaponTypeNumberFromInventory()
+    {
+        int? weaponTypeNumber = null;
+
+        foreach (var item in Inventory)
+        {
+            if (item is Weapon weapon)
+            {
+                weaponTypeNumber = weapon.TypeNumber;
+            }
+        }
+
+        return weaponTypeNumber;
+    }
 }

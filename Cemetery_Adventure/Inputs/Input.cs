@@ -63,4 +63,34 @@ public static class Input
     {
         Console.ReadLine();
     }
+
+    internal static int GetGameIdToLoad()
+    {
+        while (true)
+        {
+            Console.CursorVisible = true;
+            var input = Console.ReadLine();
+            if (int.TryParse(input, out int id))
+            {
+                Console.CursorVisible = false;
+                return id;
+            }
+        }
+    }
+
+    internal static bool PlayerSaveGame()
+    {
+        if (Console.KeyAvailable)
+        {
+            var keyInfo = Console.ReadKey(true);
+            var consoleKey = keyInfo.Key;
+            switch (consoleKey)
+            {
+                case ConsoleKey.F5:
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }

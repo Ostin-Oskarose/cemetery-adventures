@@ -2,7 +2,7 @@
 {
     public class ArmorOfLeather : Armor
     {
-        public ArmorOfLeather(string name, int defense = 3) : base(name, defense)
+        public ArmorOfLeather() : base("Armor of leather", 3, 0)
         {
         }
     }

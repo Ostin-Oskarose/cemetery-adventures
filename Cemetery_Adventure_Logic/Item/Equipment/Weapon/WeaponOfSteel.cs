@@ -2,7 +2,7 @@
 {
     public class WeaponOfSteel : Weapon
     {
-        public WeaponOfSteel(string name, int damage = 12) : base(name, damage)
+        public WeaponOfSteel() : base("Weapon of steel", 12, 2)
         {
         }
     }

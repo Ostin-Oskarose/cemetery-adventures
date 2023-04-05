@@ -58,11 +58,11 @@ namespace Cemetery_Adventure_Logic.Item
                     armor => (int)armor == random.Next(0, armorTypesAmount));
             return armorType switch
             {
-                ArmorTypes.ArmorOfLeather => new ArmorOfLeather("Armor of leather"),
-                ArmorTypes.ArmorOfWood => new ArmorOfWood("Armor of wood"),
-                ArmorTypes.ArmorOfBronze => new ArmorOfBronze("Armor of bronze"),
-                ArmorTypes.ArmorOfSteel => new ArmorOfSteel("Armor of steel"),
-                ArmorTypes.ArmorOfDiamond => new ArmorOfDiamond("Armor of diamond")
+                ArmorTypes.ArmorOfLeather => new ArmorOfLeather(),
+                ArmorTypes.ArmorOfWood => new ArmorOfWood(),
+                ArmorTypes.ArmorOfBronze => new ArmorOfBronze(),
+                ArmorTypes.ArmorOfSteel => new ArmorOfSteel(),
+                ArmorTypes.ArmorOfDiamond => new ArmorOfDiamond()
             };
         }
 
@@ -73,10 +73,10 @@ namespace Cemetery_Adventure_Logic.Item
                 .FirstOrDefault(weapon => (int)weapon == random.Next(0, weaponTypesAmount));
             return weaponType switch
             {
-                WeaponTypes.WeaponOfWood => new WeaponOfWood("Weapon of wood"),
-                WeaponTypes.WeaponOfBronze => new WeaponOfBronze("Weapon of bronze"),
-                WeaponTypes.WeaponOfSteel => new WeaponOfSteel("Weapon of steel"),
-                WeaponTypes.WeaponOfDiamond => new WeaponOfDiamond("Weapon of diamond")
+                WeaponTypes.WeaponOfWood => new WeaponOfWood(),
+                WeaponTypes.WeaponOfBronze => new WeaponOfBronze(),
+                WeaponTypes.WeaponOfSteel => new WeaponOfSteel(),
+                WeaponTypes.WeaponOfDiamond => new WeaponOfDiamond()
             };
         }
     }

@@ -3,9 +3,11 @@
 public abstract class Armor : Equipment
 {
     public int Defense { get; init; }
+    public int TypeNumber { get; init; }
 
-    protected Armor(string name, int defense) : base(name)
+    protected Armor(string name, int defense, int typeNumber) : base(name)
     {
         Defense = defense;
+        TypeNumber = typeNumber;
     }
 }

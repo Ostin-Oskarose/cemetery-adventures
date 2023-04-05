@@ -7,12 +7,12 @@ namespace Cemetery_Adventure_DB.Manager
 {
     public static class DBManager
     {
-        public static void SaveGame(int floor, string playerName, int maxHP, int damage, int defense, string armor, string weapon)
+        public static void SaveGame(int floor, string playerName, int maxHP, int? armorType, int? weaponType)
         {
-            string connectionString = Environment.GetEnvironmentVariable("connectionString");
+            string connectionString = ConfigurationManager.AppSettings["connectionString"];
             const string sqlCommand = @"INSERT INTO saved_games 
-                (saved_time, floor, player_name, maxHP, damage, defense, armor, weapon)
-                VALUES (GETDATE(), @floor, @player_name, @maxHP, @damage, @defense, @armor, @weapon);";
+                (saved_time, floor, player_name, maxHP, armor_type, weapon_type)
+                VALUES (GETDATE(), @floor, @player_name, @maxHP, @armor_type, @weapon_type);";
 
             try
             {
@@ -24,10 +24,9 @@ namespace Cemetery_Adventure_DB.Manager
                     cmd.Parameters.AddWithValue("@floor", floor);
                     cmd.Parameters.AddWithValue("@player_name", playerName);
                     cmd.Parameters.AddWithValue("@maxHP", maxHP);
-                    cmd.Parameters.AddWithValue("@damage", damage);
-                    cmd.Parameters.AddWithValue("@defense", defense);
-                    cmd.Parameters.AddWithValue("@armor", armor);
-                    cmd.Parameters.AddWithValue("@weapon", weapon);
+                    cmd.Parameters.AddWithValue("@armor_type", armorType);
+                    cmd.Parameters.AddWithValue("@weapon_type", weaponType);
+                    cmd.ExecuteNonQuery();
 
                     connection.Close();
                 }
@@ -41,8 +40,7 @@ namespace Cemetery_Adventure_DB.Manager
         public static Dictionary<string, string> LoadGame(int id)
         {
             var saved_game = new Dictionary<string, string>();
-            string connectionString = "Server=localhost;Database=Cemetery_Adventure;Trusted_Connection=True;Encrypt=False;";
-            string connectionString2 = ConfigurationManager.AppSettings["connectionString"];
+            string connectionString = ConfigurationManager.AppSettings["connectionString"];
 
             const string sqlCommand = @"SELECT * FROM saved_games
                     WHERE id = @id";
@@ -62,10 +60,8 @@ namespace Cemetery_Adventure_DB.Manager
                     saved_game.Add("floor", $"{dataReader.GetInt32("floor")}");
                     saved_game.Add("player_name", $"{dataReader.GetString("player_name")}");
                     saved_game.Add("maxHP", $"{dataReader.GetInt32("maxHP")}");
-                    saved_game.Add("damage", $"{dataReader.GetInt32("damage")}");
-                    saved_game.Add("defense", $"{dataReader.GetInt32("defense")}");
-                    saved_game.Add("armor", $"{dataReader.GetString("armor")}");
-                    saved_game.Add("weapon", $"{dataReader.GetString("weapon")}");
+                    saved_game.Add("armor_type", $"{dataReader.GetInt32("armor_type")}");
+                    saved_game.Add("weapon_type", $"{dataReader.GetInt32("weapon_type")}");
 
                     connection.Close();
                 }
@@ -80,8 +76,7 @@ namespace Cemetery_Adventure_DB.Manager
 
         public static List<Dictionary<string, string>> GetAllSavedGames()
         {
-            string connectionString = "Server=localhost;Database=Cemetery_Adventure;Trusted_Connection=True;Encrypt=False;";
-            //string connectionString = Environment.GetEnvironmentVariable("connectionString");
+            string connectionString = ConfigurationManager.AppSettings["connectionString"];
             var savedGamesList = new List<Dictionary<string, string>>();
 
             const string sqlCommand = @"SELECT * FROM saved_games";
@@ -99,17 +94,16 @@ namespace Cemetery_Adventure_DB.Manager
 
                     while (dataReader.Read())
                     {
-                        var saved_game = new Dictionary<string, string>
-                        {
+                        var savedGame = new Dictionary<string, string>
+                        {   { "id", $"{dataReader.GetInt32("id")}"},
+                            { "save_time", $"{dataReader.GetDateTime("saved_time")}"},
                             { "floor", $"{dataReader.GetInt32("floor")}" },
                             { "player_name", $"{dataReader.GetString("player_name")}" },
                             { "maxHP", $"{dataReader.GetInt32("maxHP")}" },
-                            { "damage", $"{dataReader.GetInt32("damage")}" },
-                            { "defense", $"{dataReader.GetInt32("defense")}" },
-                            { "armor", $"{dataReader.GetString("armor")}" },
-                            { "weapon", $"{dataReader.GetString("weapon")}" }
+                            { "armor_type", $"{dataReader.GetInt32("armor_type")}" },
+                            { "weapon_type", $"{dataReader.GetInt32("weapon_type")}" }
                         };
-                        savedGamesList.Add(saved_game);
+                        savedGamesList.Add(savedGame);
                     }
 
                     connection.Close();

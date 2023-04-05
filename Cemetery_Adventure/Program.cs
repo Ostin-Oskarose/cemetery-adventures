@@ -1,8 +1,7 @@
 ﻿using Cemetery_Adventure.Inputs;
-using Cemetery_Adventure_Logic;
 using Cemetery_Adventure.Outputs;
-using Cemetery_Adventure_Logic.Entity.Character;
 using Cemetery_Adventure_DB.Manager;
+using Cemetery_Adventure_Logic;
 
 namespace Cemetery_Adventure
 {
@@ -41,18 +40,23 @@ namespace Cemetery_Adventure
 
         private static Game LoadGame()
         {
-            var test = DBManager.LoadGame(1);
-            var test2 = DBManager.GetAllSavedGames();
-            var floor = 3;
-            var player = new Player("Bob", (1, 1), 20, 5, 0);
-            var game = new Game(player, floor);
-            return game;
+            Dictionary<string, string> loadedGame;
+
+            do
+            {
+                Output.DisplayAllSavedGames(DBManager.GetAllSavedGames());
+                Output.DisplayLoadGamePrompt();
+                loadedGame = DBManager.LoadGame(Input.GetGameIdToLoad());
+            } while (loadedGame.Count == 0);
+
+            return GameLoading.PrepareGame(loadedGame);
         }
 
         private static void StartGame(Game game)
         {
             Output.InitGameStart();
             var gameRunning = true;
+            var lastSaveTime = DateTime.Now;
 
             while (gameRunning)
             {
@@ -61,6 +65,16 @@ namespace Cemetery_Adventure
                 Output.DisplayMessageBuffer(game);
                 Output.DisplayPlayerInformation(game);
                 var playerDirection = Input.GetMovementDirection();
+                if (Input.PlayerSaveGame())
+                {
+                    if (DateTime.Now - lastSaveTime > TimeSpan.FromSeconds(5))
+                    {
+                        var armorTypeNumber = game.Player.GetArmorTypeNumberFromInventory();
+                        var weaponTypeNumber = game.Player.GetWeaponTypeNumberFromInventory();
+                        DBManager.SaveGame(game.Floor, game.Player.Name, game.Player.MaxHP, armorTypeNumber, weaponTypeNumber);
+                        lastSaveTime = DateTime.Now;
+                    }
+                }
                 game.Player.Direction = playerDirection;
                 game.Update();
                 if (!game.PlayerIsAlive)
