@@ -149,6 +149,8 @@ namespace Cemetery_Adventure_Logic
                     {
                         GameBoard.RemoveEntity(enemy.Position);
                     }
+
+                    MessageBuffer.Add($"{enemy.Name} died");
                 }
             }
 
