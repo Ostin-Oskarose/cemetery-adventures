@@ -4,7 +4,7 @@
     {
         public override char Symbol => Name[0];
 
-        public Vampire((int X, int Y) position, int maxHP = 50, int damage = 15, int defense = 15) : base("Vampire", position, maxHP, damage, defense)
+        public Vampire((int X, int Y) position, int maxHP = 50, int damage = 12, int defense = 10) : base("Vampire", position, maxHP, damage, defense)
         {
         }
     }

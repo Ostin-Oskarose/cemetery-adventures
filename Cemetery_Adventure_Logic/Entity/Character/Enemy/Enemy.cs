@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace Cemetery_Adventure_Logic.Entity.Character.Enemy;
+﻿namespace Cemetery_Adventure_Logic.Entity.Character.Enemy;
 
 public abstract class Enemy : Character
 {

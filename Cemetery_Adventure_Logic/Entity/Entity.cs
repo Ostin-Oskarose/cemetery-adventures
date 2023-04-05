@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Cemetery_Adventure_Logic.Entity;
+﻿namespace Cemetery_Adventure_Logic.Entity;
 
 public abstract class Entity
 {
