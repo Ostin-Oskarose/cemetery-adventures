@@ -6,6 +6,22 @@ namespace Cemetery_Adventure_Logic;
 
 public class CollisionHandler
 {
+
+    public CollisionType GetCollisionType((int X, int Y) position, GameBoard.Board board)
+    {
+        switch (board.BoardArray[position.Y, position.X])
+        {
+            case Character:
+                return CollisionType.Character;
+            case Obstacle:
+                return CollisionType.Obstacle;
+            case FloorItem:
+                return CollisionType.Item;
+            default:
+                throw new ArgumentException("Unknown Collision");
+        }
+    }
+
     public void ResolveCharacterCollision(Character character, (int X, int Y) move, GameBoard.Board board, MessageBuffer messageBuffer)
     {
         var target = board.BoardArray[move.Y, move.X] as Character;

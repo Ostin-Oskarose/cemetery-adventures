@@ -62,21 +62,6 @@ namespace Cemetery_Adventure_Logic
             }
         }
 
-        public CollisionType GetCollisionType((int X, int Y) position)
-        {
-            switch (GameBoard.BoardArray[position.Y, position.X])
-            {
-                case Character:
-                    return CollisionType.Character;
-                case Obstacle:
-                    return CollisionType.Obstacle;
-                case FloorItem:
-                    return CollisionType.Item;
-                default:
-                    throw new ArgumentException("Unknown Collision");
-            }
-        }
-
         public void CharacterTurn(Character character)
         {
             var move = character.GetMove();
@@ -88,7 +73,7 @@ namespace Cemetery_Adventure_Logic
             }
             else
             {
-                switch (GetCollisionType(move))
+                switch (_collisionHandler.GetCollisionType(move, GameBoard))
                 {
                     case CollisionType.Character:
                         _collisionHandler.ResolveCharacterCollision(character, move, GameBoard, MessageBuffer);
