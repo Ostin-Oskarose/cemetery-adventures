@@ -12,9 +12,10 @@ namespace Cemetery_Adventure_Logic
         private const int MessageBufferSize = 5;
         public Player Player;
         public int Floor;
+        private readonly CollisionHandler _collisionHandler = new CollisionHandler();
         private DateTime LastEnemyUpdate = DateTime.Now;
         public bool PlayerIsAlive => Player.IsAlive;
-
+        public bool NewLevel { get; private set; }
         public Board GameBoard { get; set; }
         public MessageBuffer MessageBuffer { get; private set; }
 
@@ -36,6 +37,7 @@ namespace Cemetery_Adventure_Logic
 
         public void Update()
         {
+            NewLevel = false;
             PlayerTurn();
             if (DateTime.Now - LastEnemyUpdate > TimeSpan.FromSeconds(0.5))
             {
@@ -59,21 +61,6 @@ namespace Cemetery_Adventure_Logic
             }
         }
 
-        public CollisionType GetCollisionType((int X, int Y) position)
-        {
-            switch (GameBoard.BoardArray[position.Y, position.X])
-            {
-                case Character:
-                    return CollisionType.Character;
-                case Obstacle:
-                    return CollisionType.Obstacle;
-                case FloorItem:
-                    return CollisionType.Item;
-                default:
-                    throw new ArgumentException("Unknown Collision");
-            }
-        }
-
         public void CharacterTurn(Character character)
         {
             var move = character.GetMove();
@@ -85,49 +72,19 @@ namespace Cemetery_Adventure_Logic
             }
             else
             {
-                switch (GetCollisionType(move))
+                switch (_collisionHandler.GetCollisionType(move, GameBoard))
                 {
                     case CollisionType.Character:
-                        ResolveCharacterCollision(character, move);
+                        _collisionHandler.ResolveCharacterCollision(character, move, GameBoard, MessageBuffer);
                         return;
                     case CollisionType.Obstacle:
-                        var obstacle = GameBoard.BoardArray[move.Y, move.X];
-                        if (obstacle is Stairs stairs && character is Player && Player.CheckForKey())
-                        {
-                            NextFloor(stairs, character);
-                        }
+                        _collisionHandler.ResolveObstacleCollision(character, move, this, GameBoard);
                         break;
                     case CollisionType.Item:
-                        if (character != Player) return;
-
-                        var item = ((FloorItem)GameBoard.BoardArray[move.Y, move.X]).Item;
-
-                        GameBoard.MoveEntity(character.Position, move);
-                        character.Move(move.X, move.Y);
-
-                        MessageBuffer.Add($"You found a {item.Name}");
-
-                        if (Player.SameTypeItem(item))
-                        {
-                            var worstItem = Player.WorstItem(item);
-                            if (worstItem == item) break;
-                            Player.RemoveItemFromInventory(worstItem.Name);
-                        }
-
-                        MessageBuffer.Add($"You equip the {item.Name}");
-                        Player.AddItemToInventory(item);
-                        Player.UpdateStatistics(item);
+                        _collisionHandler.ResolveItemCollision(character, Player, move, GameBoard, MessageBuffer);
                         break;
                 }
             }
-        }
-
-        private void ResolveCharacterCollision(Character character, (int X, int Y) move)
-        {
-            var target = GameBoard.BoardArray[move.Y, move.X] as Character;
-            if (target == character) return;
-            var damage = character.Attack(target);
-            MessageBuffer.Add($"{character.Name} attacks {target.Name} for {damage} damage");
         }
 
         public void RemoveDeadEnemies()
@@ -158,7 +115,7 @@ namespace Cemetery_Adventure_Logic
             }
         }
 
-        private void NextFloor(Stairs stairs, Character character)
+        public void NextFloor(Stairs stairs, Character character)
         {
             var random = new Random();
             var height = random.Next((InitialBoardHeight / 2), InitialBoardHeight);
@@ -169,7 +126,7 @@ namespace Cemetery_Adventure_Logic
             GameBoard = new Board(height, width, Player, Floor);
             Player.RemoveItemFromInventory("Key");
             MessageBuffer.Add("You use the key");
-            Console.Clear();//TODO get method from Output.cs
+            NewLevel = true;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Cemetery_Adventure.Outputs
 
         public static void DrawUi(Game game)
         {
-            Init();
+            Init(game);
             DisplayBoard(game);
             DisplayUiDivider(game);
             DisplayMessageBuffer(game);
@@ -22,9 +22,13 @@ namespace Cemetery_Adventure.Outputs
             Console.WriteLine(new string('-', width * 2));
         }
 
-        public static void Init()
+        public static void Init(Game game)
         {
             Console.CursorVisible = false;
+            if (game.NewLevel)
+            {
+                Console.Clear();
+            }
         }
 
         public static void DisplayBoard(Game game)
