@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cemetery_Adventure_Logic", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cemetery_Adventure_DB", "..\Cemetery_Adventure_DB\Cemetery_Adventure_DB.csproj", "{D07AB13E-FC2A-4679-8121-A66B5ECB5034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTesting\UnitTests.csproj", "{95BFD6DE-A07C-4241-A557-B50A9CFB086F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cemetery_Adventure_Tests", "..\UnitTesting\Cemetery_Adventure_Tests.csproj", "{95BFD6DE-A07C-4241-A557-B50A9CFB086F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
