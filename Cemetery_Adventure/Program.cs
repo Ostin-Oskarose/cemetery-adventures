@@ -56,21 +56,21 @@ namespace Cemetery_Adventure
         {
             Output.InitGameStart();
             var gameRunning = true;
-            var lastSaveTime = DateTime.Now;
 
             while (gameRunning)
             {
                 Output.DrawUi(game);
-                var playerDirection = Input.GetMovementDirection();
-                if (Input.PlayerSaveGame())
+                var key = Input.GetKeyPressed();
+                var playerDirection = Controls.GetMovementDirection(key);
+                if (Controls.PlayerSaveGame(key))
                 {
-                    if (DateTime.Now - lastSaveTime > TimeSpan.FromSeconds(5))
-                    {
-                        var armorTypeNumber = game.Player.GetArmorTypeNumberFromInventory();
-                        var weaponTypeNumber = game.Player.GetWeaponTypeNumberFromInventory();
-                        DBManager.SaveGame(game.Floor, game.Player.Name, game.Player.MaxHP, armorTypeNumber, weaponTypeNumber);
-                        lastSaveTime = DateTime.Now;
-                    }
+                    var armorTypeNumber = game.Player.GetArmorTypeNumberFromInventory();
+                    var weaponTypeNumber = game.Player.GetWeaponTypeNumberFromInventory();
+                    DBManager.SaveGame(game.Floor, game.Player.Name, game.Player.MaxHP, armorTypeNumber, weaponTypeNumber);
+                }
+                if (Controls.BackToMenu(key))
+                {
+                    gameRunning = false;
                 }
                 game.Player.Direction = playerDirection;
                 game.Update();
