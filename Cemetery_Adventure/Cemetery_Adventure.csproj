@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cemetery_Adventure_DB\Cemetery_Adventure_DB.csproj" />
     <ProjectReference Include="..\Cemetery_Adventure_Logic\Cemetery_Adventure_Logic.csproj" />
   </ItemGroup>
 
