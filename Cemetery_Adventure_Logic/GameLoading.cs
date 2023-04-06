@@ -1,6 +1,7 @@
 ﻿using Cemetery_Adventure_Logic.Entity.Character;
 using Cemetery_Adventure_Logic.Item.Equipment.Armor;
 using Cemetery_Adventure_Logic.Item.Equipment.Weapon;
+using static Cemetery_Adventure_Logic.Item.ItemGenerator;
 
 namespace Cemetery_Adventure_Logic
 {
@@ -26,14 +27,14 @@ namespace Cemetery_Adventure_Logic
             {
                 var armorType = Enum.GetValues<ArmorTypes>()
                     .FirstOrDefault(armor => (int)armor == armorTypeNumber);
-                inventory.Add(GetArmor(armorType));
+                inventory.Add(GenerateArmorItem(armorType));
             }
 
             if (weaponTypeNumber != null)
             {
                 var weaponType = Enum.GetValues<WeaponTypes>()
                     .FirstOrDefault(weapon => (int)weapon == weaponTypeNumber);
-                inventory.Add(GetWeapon(weaponType));
+                inventory.Add(GenerateWeaponItem(weaponType));
             }
 
             var player = new Player(playerName, (1, 1), maxHP, 5, 0);
@@ -45,29 +46,6 @@ namespace Cemetery_Adventure_Logic
             }
 
             return player;
-        }
-
-        private static Armor GetArmor(ArmorTypes armorType)
-        {
-            return armorType switch
-            {
-                ArmorTypes.ArmorOfLeather => new ArmorOfLeather(),
-                ArmorTypes.ArmorOfWood => new ArmorOfWood(),
-                ArmorTypes.ArmorOfBronze => new ArmorOfBronze(),
-                ArmorTypes.ArmorOfSteel => new ArmorOfSteel(),
-                ArmorTypes.ArmorOfDiamond => new ArmorOfDiamond(),
-            };
-        }
-
-        private static Weapon GetWeapon(WeaponTypes weaponType)
-        {
-            return weaponType switch
-            {
-                WeaponTypes.WeaponOfWood => new WeaponOfWood(),
-                WeaponTypes.WeaponOfBronze => new WeaponOfBronze(),
-                WeaponTypes.WeaponOfSteel => new WeaponOfSteel(),
-                WeaponTypes.WeaponOfDiamond => new WeaponOfDiamond()
-            };
         }
     }
 }

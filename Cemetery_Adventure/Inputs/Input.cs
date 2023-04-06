@@ -1,5 +1,4 @@
 ﻿using Cemetery_Adventure_Logic;
-using System;
 
 namespace Cemetery_Adventure.Inputs;
 

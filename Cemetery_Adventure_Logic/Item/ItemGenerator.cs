@@ -15,15 +15,15 @@ namespace Cemetery_Adventure_Logic.Item
             switch (GetRandomItemType())
             {
                 case ItemTypes.Consumable:
-                    itemToAdd = GenerateConsumableItem(random);
+                    itemToAdd = GenerateConsumableItem(GetRandomConsumableItem(random));
                     break;
 
                 case ItemTypes.Armor:
-                    itemToAdd = GenerateArmorItem(random);
+                    itemToAdd = GenerateArmorItem(GetRandomArmorType(random));
                     break;
 
                 case ItemTypes.Weapon:
-                    itemToAdd = GenerateWeaponItem(random);
+                    itemToAdd = GenerateWeaponItem(GetRandomWeaponType(random));
                     break;
             }
 
@@ -38,11 +38,30 @@ namespace Cemetery_Adventure_Logic.Item
                 .FirstOrDefault(type => (int)type == random.Next(0, itemTypeLength));
         }
 
-        private static Item GenerateConsumableItem(Random random)
+        private static ConsumableTypes GetRandomConsumableItem(Random random)
         {
             int consumableTypesAmount = Enum.GetNames(typeof(ConsumableTypes)).Length;
-            var consumableType = Enum.GetValues<ConsumableTypes>()
+            return Enum.GetValues<ConsumableTypes>()
                 .FirstOrDefault(consumable => (int)consumable == random.Next(0, consumableTypesAmount));
+        }
+
+        private static ArmorTypes GetRandomArmorType(Random random)
+        {
+            int armorTypesAmount = Enum.GetNames(typeof(ArmorTypes)).Length;
+            return Enum.GetValues<ArmorTypes>()
+                .FirstOrDefault(
+                    armor => (int)armor == random.Next(0, armorTypesAmount));
+        }
+
+        private static WeaponTypes GetRandomWeaponType(Random random)
+        {
+            int weaponTypesAmount = Enum.GetNames(typeof(WeaponTypes)).Length;
+            return Enum.GetValues<WeaponTypes>()
+                .FirstOrDefault(weapon => (int)weapon == random.Next(0, weaponTypesAmount));
+        }
+
+        public static Item GenerateConsumableItem(ConsumableTypes consumableType)
+        {
             return consumableType switch
             {
                 ConsumableTypes.HealthPotion => new HealthPotion(),
@@ -50,12 +69,8 @@ namespace Cemetery_Adventure_Logic.Item
             };
         }
 
-        private static Item GenerateArmorItem(Random random)
+        public static Item GenerateArmorItem(ArmorTypes armorType)
         {
-            int armorTypesAmount = Enum.GetNames(typeof(ArmorTypes)).Length;
-            var armorType = Enum.GetValues<ArmorTypes>()
-                .FirstOrDefault(
-                    armor => (int)armor == random.Next(0, armorTypesAmount));
             return armorType switch
             {
                 ArmorTypes.ArmorOfLeather => new ArmorOfLeather(),
@@ -66,11 +81,8 @@ namespace Cemetery_Adventure_Logic.Item
             };
         }
 
-        private static Item GenerateWeaponItem(Random random)
+        public static Item GenerateWeaponItem(WeaponTypes weaponType)
         {
-            int weaponTypesAmount = Enum.GetNames(typeof(WeaponTypes)).Length;
-            var weaponType = Enum.GetValues<WeaponTypes>()
-                .FirstOrDefault(weapon => (int)weapon == random.Next(0, weaponTypesAmount));
             return weaponType switch
             {
                 WeaponTypes.WeaponOfWood => new WeaponOfWood(),
