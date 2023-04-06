@@ -24,8 +24,25 @@ namespace Cemetery_Adventure_DB.Manager
                     cmd.Parameters.AddWithValue("@floor", floor);
                     cmd.Parameters.AddWithValue("@player_name", playerName);
                     cmd.Parameters.AddWithValue("@maxHP", maxHP);
-                    cmd.Parameters.AddWithValue("@armor_type", armorType);
-                    cmd.Parameters.AddWithValue("@weapon_type", weaponType);
+
+                    if (armorType != null)
+                    {
+                        cmd.Parameters.AddWithValue("@armor_type", armorType);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@armor_type", DBNull.Value);
+                    }
+
+                    if (weaponType != null)
+                    {
+                        cmd.Parameters.AddWithValue("@weapon_type", weaponType);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@weapon_type", DBNull.Value);
+                    }
+
                     cmd.ExecuteNonQuery();
 
                     connection.Close();
@@ -42,7 +59,8 @@ namespace Cemetery_Adventure_DB.Manager
             var saved_game = new Dictionary<string, string>();
             string connectionString = ConfigurationManager.AppSettings["connectionString"];
 
-            const string sqlCommand = @"SELECT * FROM saved_games
+            const string sqlCommand = @"SELECT floor, player_name, maxHP, armor_type, weapon_type
+                    FROM saved_games
                     WHERE id = @id";
 
             try
@@ -60,8 +78,24 @@ namespace Cemetery_Adventure_DB.Manager
                     saved_game.Add("floor", $"{dataReader.GetInt32("floor")}");
                     saved_game.Add("player_name", $"{dataReader.GetString("player_name")}");
                     saved_game.Add("maxHP", $"{dataReader.GetInt32("maxHP")}");
-                    saved_game.Add("armor_type", $"{dataReader.GetInt32("armor_type")}");
-                    saved_game.Add("weapon_type", $"{dataReader.GetInt32("weapon_type")}");
+
+                    if (dataReader.IsDBNull(dataReader.GetOrdinal("armor_type")))
+                    {
+                        saved_game.Add("armor_type", null);
+                    }
+                    else
+                    {
+                        saved_game.Add("armor_type", $"{dataReader.GetInt32("armor_type")}");
+                    }
+
+                    if (dataReader.IsDBNull(dataReader.GetOrdinal("weapon_type")))
+                    {
+                        saved_game.Add("weapon_type", null);
+                    }
+                    else
+                    {
+                        saved_game.Add("weapon_type", $"{dataReader.GetInt32("weapon_type")}");
+                    }
 
                     connection.Close();
                 }
@@ -79,7 +113,7 @@ namespace Cemetery_Adventure_DB.Manager
             string connectionString = ConfigurationManager.AppSettings["connectionString"];
             var savedGamesList = new List<Dictionary<string, string>>();
 
-            const string sqlCommand = @"SELECT * FROM saved_games";
+            const string sqlCommand = @"SELECT id, saved_time, floor, player_name FROM saved_games";
 
             try
             {
@@ -98,10 +132,7 @@ namespace Cemetery_Adventure_DB.Manager
                         {   { "id", $"{dataReader.GetInt32("id")}"},
                             { "save_time", $"{dataReader.GetDateTime("saved_time")}"},
                             { "floor", $"{dataReader.GetInt32("floor")}" },
-                            { "player_name", $"{dataReader.GetString("player_name")}" },
-                            { "maxHP", $"{dataReader.GetInt32("maxHP")}" },
-                            { "armor_type", $"{dataReader.GetInt32("armor_type")}" },
-                            { "weapon_type", $"{dataReader.GetInt32("weapon_type")}" }
+                            { "player_name", $"{dataReader.GetString("player_name")}" }
                         };
                         savedGamesList.Add(savedGame);
                     }

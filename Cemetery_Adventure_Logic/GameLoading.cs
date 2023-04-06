@@ -12,8 +12,8 @@ namespace Cemetery_Adventure_Logic
             int floor = int.Parse(loadedGame["floor"]);
             string playerName = loadedGame["player_name"];
             int maxHP = int.Parse(loadedGame["maxHP"]);
-            int armorTypeNumber = int.Parse(loadedGame["armor_type"]);
-            int weaponTypeNumber = int.Parse(loadedGame["weapon_type"]);
+            int? armorTypeNumber = ConvertStringToInt(loadedGame["armor_type"]);
+            int? weaponTypeNumber = ConvertStringToInt(loadedGame["weapon_type"]);
             var player = PreparePlayer(playerName, maxHP, armorTypeNumber, weaponTypeNumber);
 
             return new Game(player, floor);
@@ -46,6 +46,11 @@ namespace Cemetery_Adventure_Logic
             }
 
             return player;
+        }
+
+        private static int? ConvertStringToInt(string text)
+        {
+            return string.IsNullOrEmpty(text) ? null : int.Parse(text);
         }
     }
 }
