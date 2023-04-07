@@ -64,7 +64,7 @@ public class Player : Character
         foreach (var inventoryItem in Inventory)
         {
             if (inventoryItem.Name != "Key"
-                && ((item is Armor armor && inventoryItem is Armor armorInventoryItem && CompareArmors(armorInventoryItem, armor))
+                && ((item is Armor armor && inventoryItem is Armor armorInventoryItem && armor.IsBetter(armorInventoryItem))
                     || (item is Weapon weapon && inventoryItem is Weapon weaponInventoryItem && CompareWeapons(weaponInventoryItem, weapon))))
             {
                 worstItem = inventoryItem;
@@ -72,11 +72,6 @@ public class Player : Character
         }
 
         return worstItem;
-    }
-
-    private bool CompareArmors(Armor inventoryArmor, Armor floorArmor)
-    {
-        return inventoryArmor.Defense < floorArmor.Defense;
     }
 
     private bool CompareWeapons(Weapon inventoryWeapon, Weapon floorWeapon)

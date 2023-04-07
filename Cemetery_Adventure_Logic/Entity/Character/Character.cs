@@ -34,7 +34,7 @@ public abstract class Character : Entity
         return damage;
     }
 
-    public virtual void Move(int x, int y)
+    public void Move(int x, int y)
     {
         Position.X = x;
         Position.Y = y;
@@ -73,6 +73,7 @@ public abstract class Character : Entity
 
     public void IncreaseMaxHP(int maxHP)
     {
+        if (maxHP < 0) throw new ArgumentException();
         MaxHP += maxHP;
     }
 }

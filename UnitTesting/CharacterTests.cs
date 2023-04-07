@@ -30,7 +30,7 @@ public class CharacterTests
     [TestCase(-1,-1)]
     public void Move_ValidValues_ChangesCoordinates(int x, int y)
     {
-        var character = new Mock<Character>(MockBehavior.Default, new object[] { "Name", (1, 1), 20, 5, 1 });
+        var character = new Mock<Character>(MockBehavior.Default, new object[] { "Name", (0, 0), 20, 5, 1 });
         character.Object.Move(x, y);
         Assert.Multiple(() =>
         {

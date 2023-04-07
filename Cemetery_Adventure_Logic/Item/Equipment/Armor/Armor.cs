@@ -10,4 +10,9 @@ public abstract class Armor : Equipment
         Defense = defense;
         TypeNumber = typeNumber;
     }
+
+    public bool IsBetter(Armor armor)
+    {
+        return this.Defense > armor.Defense;
+    }
 }

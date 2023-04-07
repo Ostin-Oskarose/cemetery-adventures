@@ -28,7 +28,7 @@ namespace UnitTests
         }
 
         [TestCaseSource(nameof(_enemyList))]
-        public void GenerateItemToEnemy_EnemyHaveOneItem_WhenDropChanceAreLessThanZero(Enemy enemy)
+        public void GenerateItemToEnemy_EnemyHaveZeroItems_WhenDropChanceAreLessThanZero(Enemy enemy)
         {
             const int dropChance = -1;
 
