@@ -14,6 +14,13 @@ This project was created by:
 - Oskar Rudy
 - Marcin Szkurłat
 
+# Features
+-Progression
+-Different enemies increasing in difficulty
+-Real-Time enemy movement
+-Enemy detection system
+-Loading and saving
+
 # Controls
 - WASD / Arrow keys to move the character around
 - F5 to save the game
