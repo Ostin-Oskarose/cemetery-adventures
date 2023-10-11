@@ -15,11 +15,11 @@ This project was created by:
 - Marcin Szkurłat
 
 # Features
--Progression
--Different enemies increasing in difficulty
--Real-Time enemy movement
--Enemy detection system
--Loading and saving
+- Progression
+- Different enemies increasing in difficulty
+- Real-Time enemy movement
+- Enemy detection system
+- Loading and saving
 
 # Controls
 - WASD / Arrow keys to move the character around
