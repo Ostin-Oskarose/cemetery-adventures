@@ -1,5 +1,6 @@
 # Cemetery Adventures
-Cemetery Adventures is a simple roguelike game. 
+Cemetery Adventures is a simple roguelike game.
+
 The game features an endless floor dungeon with different enemy types. The player can progress through finding different equipment that will increase their power. The enemies in the game feature real-time AI with a player detection system meaning that the enemies can spot and will follow the player to their last known location. The game also supports saving and loading game saves via an SQL server database.
 
 ## Used Technologies
