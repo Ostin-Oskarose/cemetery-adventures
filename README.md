@@ -13,3 +13,8 @@ This project was created by:
 - Aneta Kusnierz
 - Oskar Rudy
 - Marcin Szkurłat
+
+# Controls
+- WASD / Arrow keys to move the character around
+- F5 to save the game
+- ESC to go back to main menu
