@@ -17,11 +17,11 @@ This project was created by:
 - Marcin Szkurłat
 
 # Features
-- Progression
-- Different enemies increasing in difficulty
-- Real-Time enemy movement
-- Enemy detection system
-- Loading and saving
+- **Progression** - The player can find items that will increase their attributes
+- **Different enemies increasing in difficulty** - The game features different types of enemies that increase in difficulty the further the player gets
+- **Real-Time enemy movement** - The enemies move around in real time
+- **Enemy detection system** - Enemies will spot the player and then seek the player's last known location
+- **Loading and saving** - The game can be saved and loaded again from the main menu
 
 # Controls
 - WASD / Arrow keys to move the character around
